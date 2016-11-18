@@ -7,21 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AEB3C5F37534F8CC2E34671F /* Pods_frank_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D648537A847DFDCF853FF9CA /* Pods_frank_ios.framework */; };
+		CC3765481DDBFEF7006FA371 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3765471DDBFEF7006FA371 /* LoginController.swift */; };
+		CC37654A1DDC0C46006FA371 /* PhoneVerificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3765491DDC0C46006FA371 /* PhoneVerificationController.swift */; };
+		CCB035B51DDD3CE6008F5119 /* FeelingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB035B41DDD3CE6008F5119 /* FeelingsController.swift */; };
+		CCB035B81DDE3F84008F5119 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB035B71DDE3F84008F5119 /* User.swift */; };
+		CCB035BC1DDF7850008F5119 /* FrankUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB035BB1DDF7850008F5119 /* FrankUser.swift */; };
+		CCB035BF1DDF7991008F5119 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB035BE1DDF7991008F5119 /* Config.swift */; };
 		CCC6E1A41D7A388B001890B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC6E1A31D7A388B001890B8 /* AppDelegate.swift */; };
-		CCC6E1A61D7A388B001890B8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC6E1A51D7A388B001890B8 /* ViewController.swift */; };
 		CCC6E1A91D7A388B001890B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCC6E1A71D7A388B001890B8 /* Main.storyboard */; };
 		CCC6E1AB1D7A388B001890B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCC6E1AA1D7A388B001890B8 /* Assets.xcassets */; };
 		CCC6E1AE1D7A388B001890B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCC6E1AC1D7A388B001890B8 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		059B86BEBB779060445D6DBE /* Pods-frank-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-frank-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-frank-ios/Pods-frank-ios.release.xcconfig"; sourceTree = "<group>"; };
+		CC239DCB1DC93C0000C29DAC /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		CC3765471DDBFEF7006FA371 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		CC3765491DDC0C46006FA371 /* PhoneVerificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneVerificationController.swift; sourceTree = "<group>"; };
+		CCB035B41DDD3CE6008F5119 /* FeelingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeelingsController.swift; sourceTree = "<group>"; };
+		CCB035B71DDE3F84008F5119 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		CCB035BB1DDF7850008F5119 /* FrankUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrankUser.swift; sourceTree = "<group>"; };
+		CCB035BE1DDF7991008F5119 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		CCC6E1A01D7A388B001890B8 /* frank-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "frank-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCC6E1A31D7A388B001890B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CCC6E1A51D7A388B001890B8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CCC6E1A81D7A388B001890B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CCC6E1AA1D7A388B001890B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CCC6E1AD1D7A388B001890B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CCC6E1AF1D7A388B001890B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD9D55A811EA3F389ECA67BB /* Pods-frank-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-frank-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-frank-ios/Pods-frank-ios.debug.xcconfig"; sourceTree = "<group>"; };
+		D648537A847DFDCF853FF9CA /* Pods_frank_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_frank_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +44,79 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEB3C5F37534F8CC2E34671F /* Pods_frank_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5092D5BCC4612DDD0DA1E853 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D648537A847DFDCF853FF9CA /* Pods_frank_ios.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CC3765421DDBEC54006FA371 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				CC3765471DDBFEF7006FA371 /* LoginController.swift */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		CC3765441DDBED4D006FA371 /* Sign-Up */ = {
+			isa = PBXGroup;
+			children = (
+				CC3765491DDC0C46006FA371 /* PhoneVerificationController.swift */,
+			);
+			name = "Sign-Up";
+			sourceTree = "<group>";
+		};
+		CCB035B31DDD3CD3008F5119 /* Feelings */ = {
+			isa = PBXGroup;
+			children = (
+				CCB035B41DDD3CE6008F5119 /* FeelingsController.swift */,
+			);
+			name = Feelings;
+			sourceTree = "<group>";
+		};
+		CCB035B61DDE3F55008F5119 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CCB035B71DDE3F84008F5119 /* User.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		CCB035B91DDE48F1008F5119 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CCB035B31DDD3CD3008F5119 /* Feelings */,
+				CC3765441DDBED4D006FA371 /* Sign-Up */,
+				CC3765421DDBEC54006FA371 /* Login */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		CCB035BA1DDF7834008F5119 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				CCB035BB1DDF7850008F5119 /* FrankUser.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
 		CCC6E1971D7A388B001890B8 = {
 			isa = PBXGroup;
 			children = (
+				CC239DCB1DC93C0000C29DAC /* Bridging-Header.h */,
 				CCC6E1A21D7A388B001890B8 /* frank-ios */,
 				CCC6E1A11D7A388B001890B8 /* Products */,
+				D2BEB972B5E39E2013C69E3A /* Pods */,
+				5092D5BCC4612DDD0DA1E853 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +131,26 @@
 		CCC6E1A21D7A388B001890B8 /* frank-ios */ = {
 			isa = PBXGroup;
 			children = (
+				CCB035BA1DDF7834008F5119 /* Services */,
+				CCB035B61DDE3F55008F5119 /* Models */,
+				CCB035B91DDE48F1008F5119 /* Controllers */,
 				CCC6E1A31D7A388B001890B8 /* AppDelegate.swift */,
-				CCC6E1A51D7A388B001890B8 /* ViewController.swift */,
+				CCB035BE1DDF7991008F5119 /* Config.swift */,
 				CCC6E1A71D7A388B001890B8 /* Main.storyboard */,
 				CCC6E1AA1D7A388B001890B8 /* Assets.xcassets */,
 				CCC6E1AC1D7A388B001890B8 /* LaunchScreen.storyboard */,
 				CCC6E1AF1D7A388B001890B8 /* Info.plist */,
 			);
 			path = "frank-ios";
+			sourceTree = "<group>";
+		};
+		D2BEB972B5E39E2013C69E3A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CD9D55A811EA3F389ECA67BB /* Pods-frank-ios.debug.xcconfig */,
+				059B86BEBB779060445D6DBE /* Pods-frank-ios.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +160,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CCC6E1B21D7A388B001890B8 /* Build configuration list for PBXNativeTarget "frank-ios" */;
 			buildPhases = (
+				989E0BDEE1033FB07B60C446 /* [CP] Check Pods Manifest.lock */,
 				CCC6E19C1D7A388B001890B8 /* Sources */,
 				CCC6E19D1D7A388B001890B8 /* Frameworks */,
 				CCC6E19E1D7A388B001890B8 /* Resources */,
+				89C0E06D1C0C18E18AC9E619 /* [CP] Embed Pods Frameworks */,
+				3F25BB0705A28882FFA215F6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -91,11 +183,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = jeanpaulversace;
 				TargetAttributes = {
 					CCC6E19F1D7A388B001890B8 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 4P35CD97Y8;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -130,12 +224,65 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3F25BB0705A28882FFA215F6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-frank-ios/Pods-frank-ios-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		89C0E06D1C0C18E18AC9E619 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-frank-ios/Pods-frank-ios-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		989E0BDEE1033FB07B60C446 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		CCC6E19C1D7A388B001890B8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCC6E1A61D7A388B001890B8 /* ViewController.swift in Sources */,
+				CC37654A1DDC0C46006FA371 /* PhoneVerificationController.swift in Sources */,
+				CC3765481DDBFEF7006FA371 /* LoginController.swift in Sources */,
+				CCB035B51DDD3CE6008F5119 /* FeelingsController.swift in Sources */,
+				CCB035BF1DDF7991008F5119 /* Config.swift in Sources */,
+				CCB035BC1DDF7850008F5119 /* FrankUser.swift in Sources */,
+				CCB035B81DDE3F84008F5119 /* User.swift in Sources */,
 				CCC6E1A41D7A388B001890B8 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -176,13 +323,17 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 4P35CD97Y8;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -199,10 +350,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -221,13 +373,17 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 4P35CD97Y8;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -238,32 +394,40 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		CCC6E1B31D7A388B001890B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD9D55A811EA3F389ECA67BB /* Pods-frank-ios.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "frank-ios/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "c.jeanpaulverace.frank-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		CCC6E1B41D7A388B001890B8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 059B86BEBB779060445D6DBE /* Pods-frank-ios.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "frank-ios/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "c.jeanpaulverace.frank-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -286,6 +450,7 @@
 				CCC6E1B41D7A388B001890B8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
