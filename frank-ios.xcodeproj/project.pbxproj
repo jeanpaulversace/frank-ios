@@ -8,33 +8,63 @@
 
 /* Begin PBXBuildFile section */
 		AEB3C5F37534F8CC2E34671F /* Pods_frank_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D648537A847DFDCF853FF9CA /* Pods_frank_ios.framework */; };
+		CC08D91C1DEFA7C500681E9D /* AddContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC08D91A1DEFA7C500681E9D /* AddContactsTableViewCell.swift */; };
+		CC08D91D1DEFA7C500681E9D /* AddContactsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC08D91B1DEFA7C500681E9D /* AddContactsTableViewCell.xib */; };
+		CC08D9211DF0E6A200681E9D /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC08D9201DF0E6A200681E9D /* FriendRequest.swift */; };
+		CC08D9231DF2297A00681E9D /* FriendRequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC08D9221DF2297A00681E9D /* FriendRequestService.swift */; };
+		CC08D9251DF24F8000681E9D /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC08D9241DF24F8000681E9D /* Utilities.swift */; };
 		CC3765481DDBFEF7006FA371 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3765471DDBFEF7006FA371 /* LoginController.swift */; };
 		CC37654A1DDC0C46006FA371 /* PhoneVerificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3765491DDC0C46006FA371 /* PhoneVerificationController.swift */; };
+		CC6DF32C1DF71E0400534018 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6DF32B1DF71E0400534018 /* SettingsController.swift */; };
+		CC6DF3301DF75FD400534018 /* AddedMeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6DF32E1DF75FD400534018 /* AddedMeTableViewCell.swift */; };
+		CC6DF3311DF75FD400534018 /* AddedMeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC6DF32F1DF75FD400534018 /* AddedMeTableViewCell.xib */; };
+		CC6DF3331DF7685B00534018 /* AddedMeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6DF3321DF7685B00534018 /* AddedMeController.swift */; };
+		CC6DF3371DF8C45900534018 /* FriendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6DF3361DF8C45900534018 /* FriendService.swift */; };
+		CC6DF3391DF8FC2700534018 /* Feeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6DF3381DF8FC2700534018 /* Feeling.swift */; };
+		CC6DF33B1DF8FD9300534018 /* FeelingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6DF33A1DF8FD9300534018 /* FeelingService.swift */; };
+		CC6DF33D1DF9010D00534018 /* MyFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6DF33C1DF9010D00534018 /* MyFriendsController.swift */; };
 		CCB035B51DDD3CE6008F5119 /* FeelingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB035B41DDD3CE6008F5119 /* FeelingsController.swift */; };
 		CCB035B81DDE3F84008F5119 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB035B71DDE3F84008F5119 /* User.swift */; };
-		CCB035BC1DDF7850008F5119 /* FrankUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB035BB1DDF7850008F5119 /* FrankUser.swift */; };
-		CCB035BF1DDF7991008F5119 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB035BE1DDF7991008F5119 /* Config.swift */; };
+		CCB035BC1DDF7850008F5119 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB035BB1DDF7850008F5119 /* UserService.swift */; };
+		CCB035BF1DDF7991008F5119 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB035BE1DDF7991008F5119 /* Constants.swift */; };
 		CCC6E1A41D7A388B001890B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC6E1A31D7A388B001890B8 /* AppDelegate.swift */; };
 		CCC6E1A91D7A388B001890B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCC6E1A71D7A388B001890B8 /* Main.storyboard */; };
 		CCC6E1AB1D7A388B001890B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCC6E1AA1D7A388B001890B8 /* Assets.xcassets */; };
 		CCC6E1AE1D7A388B001890B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCC6E1AC1D7A388B001890B8 /* LaunchScreen.storyboard */; };
+		CCD851A91DECF08600B810CC /* AddContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD851A81DECF08600B810CC /* AddContactsController.swift */; };
+		CCF85D8B1DEF7E90000CDC9D /* TermsAndServicesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF85D8A1DEF7E90000CDC9D /* TermsAndServicesController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		059B86BEBB779060445D6DBE /* Pods-frank-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-frank-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-frank-ios/Pods-frank-ios.release.xcconfig"; sourceTree = "<group>"; };
+		CC08D91A1DEFA7C500681E9D /* AddContactsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddContactsTableViewCell.swift; sourceTree = "<group>"; };
+		CC08D91B1DEFA7C500681E9D /* AddContactsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddContactsTableViewCell.xib; sourceTree = "<group>"; };
+		CC08D9201DF0E6A200681E9D /* FriendRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
+		CC08D9221DF2297A00681E9D /* FriendRequestService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendRequestService.swift; sourceTree = "<group>"; };
+		CC08D9241DF24F8000681E9D /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		CC239DCB1DC93C0000C29DAC /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		CC3765471DDBFEF7006FA371 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		CC3765491DDC0C46006FA371 /* PhoneVerificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneVerificationController.swift; sourceTree = "<group>"; };
+		CC6DF32B1DF71E0400534018 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		CC6DF32E1DF75FD400534018 /* AddedMeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddedMeTableViewCell.swift; sourceTree = "<group>"; };
+		CC6DF32F1DF75FD400534018 /* AddedMeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddedMeTableViewCell.xib; sourceTree = "<group>"; };
+		CC6DF3321DF7685B00534018 /* AddedMeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddedMeController.swift; sourceTree = "<group>"; };
+		CC6DF3361DF8C45900534018 /* FriendService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendService.swift; sourceTree = "<group>"; };
+		CC6DF3381DF8FC2700534018 /* Feeling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feeling.swift; sourceTree = "<group>"; };
+		CC6DF33A1DF8FD9300534018 /* FeelingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeelingService.swift; sourceTree = "<group>"; };
+		CC6DF33C1DF9010D00534018 /* MyFriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFriendsController.swift; sourceTree = "<group>"; };
 		CCB035B41DDD3CE6008F5119 /* FeelingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeelingsController.swift; sourceTree = "<group>"; };
 		CCB035B71DDE3F84008F5119 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		CCB035BB1DDF7850008F5119 /* FrankUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrankUser.swift; sourceTree = "<group>"; };
-		CCB035BE1DDF7991008F5119 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		CCB035BB1DDF7850008F5119 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		CCB035BE1DDF7991008F5119 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CCC6E1A01D7A388B001890B8 /* frank-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "frank-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCC6E1A31D7A388B001890B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCC6E1A81D7A388B001890B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CCC6E1AA1D7A388B001890B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CCC6E1AD1D7A388B001890B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CCC6E1AF1D7A388B001890B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CCD851A81DECF08600B810CC /* AddContactsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddContactsController.swift; sourceTree = "<group>"; };
+		CCF85D8A1DEF7E90000CDC9D /* TermsAndServicesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndServicesController.swift; sourceTree = "<group>"; };
 		CD9D55A811EA3F389ECA67BB /* Pods-frank-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-frank-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-frank-ios/Pods-frank-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		D648537A847DFDCF853FF9CA /* Pods_frank_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_frank_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -71,8 +101,29 @@
 			isa = PBXGroup;
 			children = (
 				CC3765491DDC0C46006FA371 /* PhoneVerificationController.swift */,
+				CCF85D8A1DEF7E90000CDC9D /* TermsAndServicesController.swift */,
+				CCD851A81DECF08600B810CC /* AddContactsController.swift */,
 			);
 			name = "Sign-Up";
+			sourceTree = "<group>";
+		};
+		CC6DF32A1DF71DC700534018 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				CC6DF32B1DF71E0400534018 /* SettingsController.swift */,
+				CC6DF3321DF7685B00534018 /* AddedMeController.swift */,
+				CC6DF33C1DF9010D00534018 /* MyFriendsController.swift */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		CC6DF32D1DF75F9700534018 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				CC6DF32E1DF75FD400534018 /* AddedMeTableViewCell.swift */,
+				CC6DF32F1DF75FD400534018 /* AddedMeTableViewCell.xib */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		CCB035B31DDD3CD3008F5119 /* Feelings */ = {
@@ -87,6 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				CCB035B71DDE3F84008F5119 /* User.swift */,
+				CC08D9201DF0E6A200681E9D /* FriendRequest.swift */,
+				CC6DF3381DF8FC2700534018 /* Feeling.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -94,6 +147,7 @@
 		CCB035B91DDE48F1008F5119 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CC6DF32A1DF71DC700534018 /* Settings */,
 				CCB035B31DDD3CD3008F5119 /* Feelings */,
 				CC3765441DDBED4D006FA371 /* Sign-Up */,
 				CC3765421DDBEC54006FA371 /* Login */,
@@ -104,7 +158,10 @@
 		CCB035BA1DDF7834008F5119 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				CCB035BB1DDF7850008F5119 /* FrankUser.swift */,
+				CCB035BB1DDF7850008F5119 /* UserService.swift */,
+				CC08D9221DF2297A00681E9D /* FriendRequestService.swift */,
+				CC6DF3361DF8C45900534018 /* FriendService.swift */,
+				CC6DF33A1DF8FD9300534018 /* FeelingService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -132,16 +189,36 @@
 			isa = PBXGroup;
 			children = (
 				CCB035BA1DDF7834008F5119 /* Services */,
+				CCF1C71F1DEE8D890055D4AE /* Views */,
 				CCB035B61DDE3F55008F5119 /* Models */,
 				CCB035B91DDE48F1008F5119 /* Controllers */,
 				CCC6E1A31D7A388B001890B8 /* AppDelegate.swift */,
-				CCB035BE1DDF7991008F5119 /* Config.swift */,
+				CCB035BE1DDF7991008F5119 /* Constants.swift */,
+				CC08D9241DF24F8000681E9D /* Utilities.swift */,
 				CCC6E1A71D7A388B001890B8 /* Main.storyboard */,
 				CCC6E1AA1D7A388B001890B8 /* Assets.xcassets */,
 				CCC6E1AC1D7A388B001890B8 /* LaunchScreen.storyboard */,
 				CCC6E1AF1D7A388B001890B8 /* Info.plist */,
 			);
 			path = "frank-ios";
+			sourceTree = "<group>";
+		};
+		CCF1C71F1DEE8D890055D4AE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CC6DF32D1DF75F9700534018 /* Settings */,
+				CCF1C7241DEE8F5B0055D4AE /* Sign-Up */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		CCF1C7241DEE8F5B0055D4AE /* Sign-Up */ = {
+			isa = PBXGroup;
+			children = (
+				CC08D91A1DEFA7C500681E9D /* AddContactsTableViewCell.swift */,
+				CC08D91B1DEFA7C500681E9D /* AddContactsTableViewCell.xib */,
+			);
+			name = "Sign-Up";
 			sourceTree = "<group>";
 		};
 		D2BEB972B5E39E2013C69E3A /* Pods */ = {
@@ -216,8 +293,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC08D91D1DEFA7C500681E9D /* AddContactsTableViewCell.xib in Resources */,
 				CCC6E1AE1D7A388B001890B8 /* LaunchScreen.storyboard in Resources */,
 				CCC6E1AB1D7A388B001890B8 /* Assets.xcassets in Resources */,
+				CC6DF3311DF75FD400534018 /* AddedMeTableViewCell.xib in Resources */,
 				CCC6E1A91D7A388B001890B8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,13 +356,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC6DF3391DF8FC2700534018 /* Feeling.swift in Sources */,
 				CC37654A1DDC0C46006FA371 /* PhoneVerificationController.swift in Sources */,
+				CC6DF33B1DF8FD9300534018 /* FeelingService.swift in Sources */,
+				CC6DF3331DF7685B00534018 /* AddedMeController.swift in Sources */,
 				CC3765481DDBFEF7006FA371 /* LoginController.swift in Sources */,
+				CC08D9211DF0E6A200681E9D /* FriendRequest.swift in Sources */,
+				CC6DF3301DF75FD400534018 /* AddedMeTableViewCell.swift in Sources */,
+				CC08D91C1DEFA7C500681E9D /* AddContactsTableViewCell.swift in Sources */,
+				CC08D9251DF24F8000681E9D /* Utilities.swift in Sources */,
+				CC6DF3371DF8C45900534018 /* FriendService.swift in Sources */,
+				CCF85D8B1DEF7E90000CDC9D /* TermsAndServicesController.swift in Sources */,
 				CCB035B51DDD3CE6008F5119 /* FeelingsController.swift in Sources */,
-				CCB035BF1DDF7991008F5119 /* Config.swift in Sources */,
-				CCB035BC1DDF7850008F5119 /* FrankUser.swift in Sources */,
+				CCB035BF1DDF7991008F5119 /* Constants.swift in Sources */,
+				CCB035BC1DDF7850008F5119 /* UserService.swift in Sources */,
+				CCD851A91DECF08600B810CC /* AddContactsController.swift in Sources */,
+				CC6DF32C1DF71E0400534018 /* SettingsController.swift in Sources */,
 				CCB035B81DDE3F84008F5119 /* User.swift in Sources */,
+				CC6DF33D1DF9010D00534018 /* MyFriendsController.swift in Sources */,
 				CCC6E1A41D7A388B001890B8 /* AppDelegate.swift in Sources */,
+				CC08D9231DF2297A00681E9D /* FriendRequestService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

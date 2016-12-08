@@ -37,7 +37,13 @@ class PhoneVerificationController: UIViewController, UITextFieldDelegate {
     @IBAction func confirmButtonPressed(_ sender: UIButton) {
         if let phoneNumber = self.phoneNumberTextField.text {
             if (self.isPhoneNumberValid(phoneNumber)) {
-                // Continue to next screen
+                let stringArray = phoneNumber.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
+                let formattedPhoneNumber = stringArray.joined(separator: "")
+                do {
+                    try self.updateUserPhoneNumber(phoneNumber: formattedPhoneNumber)
+                } catch {
+                    print("Failed to update user's phone number!")
+                }
             } else {
                 let alert = UIAlertController(title: "Invalid Phone Number", message: "Please enter a valid 10-digit number", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
@@ -56,6 +62,31 @@ class PhoneVerificationController: UIViewController, UITextFieldDelegate {
         
         return false
     }
+    
+    func updateUserPhoneNumber (phoneNumber: String) throws {
+        
+        guard let currentUser = UserService.currentUser else {
+            throw SessionError.NoCurrentUser
+        }
+        
+        let userToBeUpdated = try User(id: currentUser.id, facebookId: currentUser.facebookId, accessToken: currentUser.accessToken, email: currentUser.email, name: currentUser.name, phoneNumber: phoneNumber, createdAt: FrankDateFormatter.formatter.string(from: currentUser.createdAt), updatedAt: FrankDateFormatter.formatter.string(from: Date()))
+        
+        UserService.update(user: userToBeUpdated).then { result -> Void in
+                
+                if result is [String:Any] {
+                    // Move to Terms & Services View
+                    OperationQueue.main.addOperation {
+                        [weak self] in
+                        self?.performSegue(withIdentifier: "TermsAndServices", sender: self)
+                    }
+                }
+                
+        }.catch { error in
+                print("Error occurred trying to update user: \(error)")
+        }
+        
+    }
+    
     // UITextField Delegate Methods
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         

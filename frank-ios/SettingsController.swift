@@ -1,14 +1,14 @@
 //
-//  FeelingsController.swift
+//  SettingsController.swift
 //  frank-ios
 //
-//  Created by Winston Tri on 11/16/16.
+//  Created by Winston Tri on 12/6/16.
 //  Copyright © 2016 jeanpaulversace. All rights reserved.
 //
 
 import UIKit
 
-class FeelingsController: UIViewController {
+class SettingsController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,13 +21,6 @@ class FeelingsController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func frankLogoButtonPressed(_ sender: UIButton) {
-        // Move to SettingsController
-        OperationQueue.main.addOperation {
-            [weak self] in
-            self?.performSegue(withIdentifier: "Settings", sender: self)
-        }
-    }
 
     /*
     // MARK: - Navigation

@@ -1,41 +1,34 @@
 //
-//  User.swift
+//  Feeling.swift
 //  frank-ios
 //
-//  Created by Winston Tri on 11/17/16.
+//  Created by Winston Tri on 12/7/16.
 //  Copyright © 2016 jeanpaulversace. All rights reserved.
 //
 
 import Foundation
-import PromiseKit
-import Alamofire
 
-enum SerializationError: Error {
-    case Missing(String)
-    case Invalid(String,Any)
+enum FeelingRating : Int {
+    case Zambezi = 1
+    case ArmyGreen
+    case BaliHai
+    case NewYorkPink
 }
 
-class User {
+class Feeling {
     
     let id : String
-    let facebookId : String
-    let accessToken : String
-    let email : String
-    let name : String
-    let phoneNumber : String
-    let createdAt : Date
-    let updatedAt : Date
-    // let friends : Set<User>
+    let rating : FeelingRating
+    let creator : User
+    let createdAt: Date
+    let updatedAt: Date
     
-    // Default initializer
-    init(id: String, facebookId: String, accessToken: String, email: String, name: String, phoneNumber: String, createdAt: String, updatedAt: String) throws {
+    // Default initializaer
+    init(id: String, rating: FeelingRating, creator: User, createdAt: String, updatedAt: String) throws {
         
         self.id = id
-        self.facebookId = facebookId
-        self.accessToken = accessToken
-        self.email = email
-        self.name = name
-        self.phoneNumber = phoneNumber
+        self.rating = rating
+        self.creator = creator
         self.createdAt = FrankDateFormatter.formatter.date(from: createdAt)!
         self.updatedAt = FrankDateFormatter.formatter.date(from: updatedAt)!
     }
@@ -48,24 +41,12 @@ class User {
             throw SerializationError.Missing("_id")
         }
         
-        guard let facebookId = json["facebookId"] as? String else {
-            throw SerializationError.Missing("facebookId")
+        guard let rating = json["rating"] as? FeelingRating else {
+            throw SerializationError.Missing("rating")
         }
         
-        guard let accessToken = json["accessToken"] as? String else {
-            throw SerializationError.Missing("accessToken")
-        }
-        
-        guard let email = json["email"] as? String else {
-            throw SerializationError.Missing("email")
-        }
-        
-        guard let name = json["name"] as? String else {
-            throw SerializationError.Missing("name")
-        }
-        
-        guard let phoneNumber = json["phoneNumber"] as? String else {
-            throw SerializationError.Missing("phoneNumber")
+        guard let creator = json["creator"] as? User else {
+            throw SerializationError.Missing("creator")
         }
         
         guard let createdAt = json["createdAt"] as? String else {
@@ -78,14 +59,10 @@ class User {
         
         // Initialize properties
         self.id = id
-        self.facebookId = facebookId
-        self.accessToken = accessToken
-        self.email = email
-        self.name = name
-        self.phoneNumber = phoneNumber
+        self.rating = rating
+        self.creator = creator
         self.createdAt = FrankDateFormatter.formatter.date(from: createdAt)!
         self.updatedAt = FrankDateFormatter.formatter.date(from: updatedAt)!
-        
     }
     
     func toJsonWithoutId() -> [String:Any]? {
@@ -96,18 +73,21 @@ class User {
         return toJson(withId: true)
     }
     
+    
     private func toJson(withId: Bool) -> [String:Any]? {
         
-        let mirroredObject = Mirror(reflecting:self)
+        let mirroredObject = Mirror(reflecting: self)
         
         var resultDictionary = [String:Any]()
         
         for (_, attr) in mirroredObject.children.enumerated() {
             if let property_name = attr.label as String! {
-                if !withId {
+                if !withId && property_name == "id" {
                     continue
                 }
                 switch attr.value {
+                case let user as User:
+                    resultDictionary[property_name] = user.id
                 case let date as Date:
                     resultDictionary[property_name] = FrankDateFormatter.formatter.string(from: date)
                 default:
@@ -119,8 +99,9 @@ class User {
                 }
             }
         }
+        
         return resultDictionary
+        
     }
-    
     
 }
