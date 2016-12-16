@@ -13,17 +13,15 @@ class FriendRequest {
     let id : String
     let fromUser : User
     let toUser : User
-    let fromToId: String
     let createdAt: Date
     let updatedAt: Date
     
     // Default initializaer
-    init(id: String, fromUser: User, toUser: User, fromToId: String, createdAt: String, updatedAt: String) throws {
+    init(id: String, fromUser: User, toUser: User, createdAt: String, updatedAt: String) throws {
         
         self.id = id
         self.fromUser = fromUser
         self.toUser = toUser
-        self.fromToId = fromToId
         self.createdAt = FrankDateFormatter.formatter.date(from: createdAt)!
         self.updatedAt = FrankDateFormatter.formatter.date(from: updatedAt)!
     }
@@ -35,17 +33,21 @@ class FriendRequest {
         guard let id = json["_id"] as? String else {
             throw SerializationError.Missing("_id")
         }
+        
+        guard let fromUserJson = json["fromUser"] as? [String:Any] else {
+            throw SerializationError.Missing("fromUserJson")
+        }
 
-        guard let fromUser = json["fromUser"] as? User else {
+        guard let fromUser = try User.init(json: fromUserJson) else {
             throw SerializationError.Missing("fromUser")
         }
         
-        guard let toUser = json["toUser"] as? User else {
-            throw SerializationError.Missing("toUser")
+        guard let toUserJson = json["toUser"] as? [String:Any] else {
+            throw SerializationError.Missing("toUserJson")
         }
         
-        guard let fromToId = json["fromToId"] as? String else {
-            throw SerializationError.Missing("fromToId")
+        guard let toUser = try User.init(json: toUserJson) else {
+            throw SerializationError.Missing("toUser")
         }
         
         guard let createdAt = json["createdAt"] as? String else {
@@ -60,7 +62,6 @@ class FriendRequest {
         self.id = id
         self.fromUser = fromUser
         self.toUser = toUser
-        self.fromToId = fromToId
         self.createdAt = FrankDateFormatter.formatter.date(from: createdAt)!
         self.updatedAt = FrankDateFormatter.formatter.date(from: updatedAt)!
     }

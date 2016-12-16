@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,20 +20,7 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="frank-logo" translatesAutoresizingMaskIntoConstraints="NO" id="gD9-cQ-anN">
-                                <rect key="frame" x="113" y="125.5" width="150" height="83"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="83" id="0Qi-91-LB4"/>
-                                    <constraint firstAttribute="width" constant="150" id="s84-aW-ddj"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="gD9-cQ-anN" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="bed-lZ-Llc"/>
-                            <constraint firstItem="gD9-cQ-anN" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="0.5" id="lbU-QZ-GBj"/>
-                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -42,7 +28,4 @@
             <point key="canvasLocation" x="62" y="313"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="frank-logo" width="155" height="76"/>
-    </resources>
 </document>

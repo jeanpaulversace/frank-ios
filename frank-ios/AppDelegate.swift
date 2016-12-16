@@ -8,10 +8,11 @@
 
 import UIKit
 import FBSDKLoginKit
+import Spring
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
     
     @nonobjc func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
@@ -31,22 +32,103 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        if (FBSDKAccessToken.current() != nil) {
+        if let window = self.window {
             
-            // Get Storyboard
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            
-            // Instantiate your desired ViewController
-            let rootController = storyboard.instantiateViewController(withIdentifier: "Feelings") as! FeelingsController
-            
-            // Because self.window is an optional you should check it's value first and assign your rootViewController
-            if let window = self.window {
-                window.rootViewController = rootController
+            if let accessToken = FBSDKAccessToken.current() {
+                UserService.login(accessToken: accessToken).then { result -> Void in
+                    
+                    if let resultDictionary = result as? [String: Any],
+                        let user = resultDictionary["user"] as? [String:Any] {
+                        
+                        // Set Current User global variable
+                        do {
+                            let currentUser = try User(json: user)
+                            if let unwrappedCurrentUser = currentUser {
+                                UserService.currentUser = unwrappedCurrentUser
+                                
+                                // Present Feelings
+                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                let rootController = storyboard.instantiateViewController(withIdentifier: "FeelingsNavigation") as! UINavigationController
+                                window.rootViewController = rootController
+                                window.makeKeyAndVisible()
+                                self.doLoadingAnimation(window: window)
+                            }
+                        } catch {
+                            UserService.currentUser = nil
+                        }
+                        
+                    }
+                    
+                    
+                    }.catch { error in
+                        print("Error occurred trying to login or sign up: \(error)")
+                        
+                        FBSDKLoginManager.init().logOut()
+                        
+                        // Present Login
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let rootController = storyboard.instantiateViewController(withIdentifier: "Login") as! LoginController
+                        window.rootViewController = rootController
+                        
+                }
             }
+            
         }
         
         
         return true
+    }
+    
+    func doLoadingAnimation(window: UIView) {
+        if let pinkCircle = UIImage(named: "pink"), let blueCircle = UIImage(named: "blue"),
+            let greenCircle = UIImage(named: "green"), let purpleCircle = UIImage(named: "purple") {
+            
+            let pinkImageView = UIImageView(frame: CGRect(x: window.frame.origin.x-60, y: window.center.y, width: 30, height: 30))
+            pinkImageView.image  = pinkCircle
+            
+            let blueImageView = UIImageView(frame: CGRect(x: window.frame.origin.x-60, y: window.center.y, width: 30, height: 30))
+            blueImageView.image  = blueCircle
+            
+            let greenImageView = UIImageView(frame: CGRect(x: window.frame.origin.x-60, y: window.center.y, width: 30, height: 30))
+            greenImageView.image  = greenCircle
+            
+            let purpleImageView = UIImageView(frame: CGRect(x: window.frame.origin.x-60, y: window.center.y, width: 30, height: 30))
+            purpleImageView.image  = purpleCircle
+            
+            let whiteBG = UIView(frame: window.frame)
+            whiteBG.backgroundColor = UIColor.white
+            
+            window.addSubview(whiteBG)
+            window.addSubview(pinkImageView)
+            window.addSubview(blueImageView)
+            window.addSubview(greenImageView)
+            window.addSubview(purpleImageView)
+            
+            UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+                pinkImageView.frame.origin.x = window.center.x + 75
+            }, completion: { (result) in
+                UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+                    blueImageView.frame.origin.x = window.center.x + 15
+                }, completion: { (result) in
+                    UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+                        greenImageView.frame.origin.x = window.center.x - 45
+                    }, completion: { (result) in
+                        UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+                            purpleImageView.frame.origin.x = window.center.x - 105
+                        }, completion: { (result) in
+                            UIView.transition(with: window, duration: 1.0, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
+                                whiteBG.removeFromSuperview()
+                                pinkImageView.removeFromSuperview()
+                                blueImageView.removeFromSuperview()
+                                greenImageView.removeFromSuperview()
+                                purpleImageView.removeFromSuperview()
+                            }, completion: nil)
+                        })
+                    })
+                })
+            })
+            
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

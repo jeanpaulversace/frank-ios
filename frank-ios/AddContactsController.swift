@@ -16,7 +16,10 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var skipButton: UIBarButtonItem!
     
+    var delegate:FeelingsController! = nil
     var activityIndicator : NVActivityIndicatorView!
     
     var users = [User]()
@@ -26,11 +29,6 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
         
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         activityIndicator = NVActivityIndicatorView(frame: self.view.frame, type: NVActivityIndicatorType.ballScaleRipple, color: UIColor.darkGray, padding: NVActivityIndicatorView.DEFAULT_PADDING)
         
         // Hide separator lines for intial empty tableview
@@ -45,6 +43,29 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        // Customize Navigation Bar
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Georgia-Italic", size: 24)!]
+        
+        skipButton.setTitleTextAttributes([
+            NSFontAttributeName: UIFont(name: "Georgia-Italic", size: 24.0)!,
+            NSForegroundColorAttributeName: UIColor.darkText],
+                                          for: UIControlState.normal)
+        
+        if delegate != nil {
+            skipButton.isEnabled = false
+            skipButton.tintColor = UIColor.clear
+            backButton.isEnabled = true
+            backButton.tintColor = UIColor.darkText
+        } else {
+            skipButton.isEnabled = true
+            skipButton.tintColor = UIColor.darkText
+            backButton.isEnabled = false
+            backButton.tintColor = UIColor.clear
+        }
+        
+    }
+    
     @IBAction func sendButtonPressed(_ sender: Any) {
         do {
             try createFriendRequests()
@@ -53,7 +74,11 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    @IBAction func skipButtonPressed(_ sender: Any) {
+    @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {
+        delegate.popBackToFeelings()
+    }
+    
+    @IBAction func skipButtonPressed(_ sender: UIBarButtonItem) {
         segueToFeelingsView()
     }
     
@@ -66,19 +91,19 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
             
             for selectedUser in selectedUsers {
                 
-                let fromToId = currentUser.id + selectedUser.id
+                let friendRequest = try FriendRequest(id: "", fromUser: currentUser, toUser: selectedUser, createdAt: FrankDateFormatter.formatter.string(from: Date()), updatedAt: FrankDateFormatter.formatter.string(from: Date()))
                 
-                let friendRequest = try FriendRequest(id: "", fromUser: currentUser, toUser: selectedUser, fromToId: fromToId, createdAt: FrankDateFormatter.formatter.string(from: Date()), updatedAt: FrankDateFormatter.formatter.string(from: Date()))
                 friendRequestArray.append(friendRequest)
                 
             }
             
             FriendRequestService.create(friendRequests: friendRequestArray).then { result -> Void in
-                
-                if result is [String:Any] {
-                    // FriendRequest creation was successful, go to Feelings View
+
+                // FriendRequest creation was successful, go to Feelings View
+                if let resultDictionary = result as? [[String:Any]] {
                     self.segueToFeelingsView()
                 }
+                
             }
             
         }
@@ -87,7 +112,6 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
     func updateTableViewWithPossibleFriends (tableView: UITableView) {
         
         self.activityIndicator.startAnimating()
-        
         let contacts = getContacts()
         
         getPossibleFriends(contacts: contacts).then { result -> Void in
@@ -97,6 +121,14 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
             self.users = [User]()
             
             if let resultDictionary = result as? [[String:Any]] {
+                
+                if resultDictionary.count == 0 {
+                    self.createEmptyStateLabel()
+                    self.tableView.separatorStyle = .none
+                } else {
+                    self.tableView.separatorStyle = .singleLine
+                }
+                
                 for object in resultDictionary {
                     let user = try User.init(json: object)
                     if let unwrappedUser = user {
@@ -105,7 +137,6 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
                 }
                 
                 DispatchQueue.main.async {
-                    self.tableView.separatorStyle = .singleLine
                     self.tableView.reloadData()
                 }
             }
@@ -179,7 +210,7 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
         
         let accessTokenUrlSnippet = "?access_token=\(accessToken)"
         
-        let url = Constants.serverUrl + "/api/add-friends/" + accessTokenUrlSnippet
+        let url = Constants.serverUrl + "/api/possible-friends/" + accessTokenUrlSnippet
         
         return Promise { fulfill, reject in
             Alamofire.request(url, method: .post, parameters : ["phoneNumbers":phoneNumberArray], encoding: JSONEncoding.default)
@@ -199,9 +230,13 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
     // MARK: - NAVIGATION
     func segueToFeelingsView() {
         // Move to the Feelings View
-        OperationQueue.main.addOperation {
-            [weak self] in
-            self?.performSegue(withIdentifier: "Feelings", sender: self)
+        if (delegate != nil) {
+            delegate.popBackToFeelings()
+        } else {
+            OperationQueue.main.addOperation {
+                [weak self] in
+                self?.performSegue(withIdentifier: "Feelings", sender: self)
+            }
         }
     }
 
@@ -252,12 +287,22 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
         if let cell = tableView.cellForRow(at: indexPath) as? AddContactsTableViewCell {
 
             if selectedUsers.contains(where: { $0 === users[indexPath.row]}) {
-                cell.setDeselected()
+                cell.setSelected()
             } else {
                 cell.setDeselected()
             }
             
         }
+    }
+    
+    func createEmptyStateLabel() {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width:self.tableView.bounds.width, height: self.tableView.bounds.height))
+        label.font = UIFont (name: "Georgia-Italic", size: 24)
+        label.textColor = UIColor.darkText
+        label.textAlignment = .center
+        label.text = "No Contacts To Add"
+        
+        self.tableView.addSubview(label)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

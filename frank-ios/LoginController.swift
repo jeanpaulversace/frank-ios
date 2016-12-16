@@ -19,11 +19,21 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate  {
     }
 
     @IBOutlet weak var fbLoginButton: FBSDKLoginButton!
+    @IBOutlet weak var frankImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.fbLoginButton.delegate = self
+        fbLoginButton.delegate = self
+        fbLoginButton.isHidden = true
+        frankImageView.isHidden = true
+        
+        if FBSDKAccessToken.current() == nil {
+            UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
+                self.fbLoginButton.isHidden = false
+                self.frankImageView.isHidden = false
+            }, completion: nil)
+        }
     }
     
     // FBSDKLoginButtonDelegate Methods

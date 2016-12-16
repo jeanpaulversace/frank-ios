@@ -18,10 +18,10 @@ struct FriendService {
         
         let accessTokenUrlSnippet = "?access_token=\(accessToken)"
         
-        let url = Constants.serverUrl + "/api/users/friends/" + accessTokenUrlSnippet + user.id
+        let url = Constants.serverUrl + "/api/users/friends/" + user.id + accessTokenUrlSnippet
         
         return Promise { fulfill, reject in
-            Alamofire.request(url, method: .get, parameters : [:], encoding: JSONEncoding.default)
+            Alamofire.request(url, method: .get, encoding: JSONEncoding.default)
                 .validate()
                 .responseJSON { response in
                     switch response.result {
@@ -40,7 +40,7 @@ struct FriendService {
         
         let accessTokenUrlSnippet = "?access_token=\(accessToken)"
         
-        let url = Constants.serverUrl + "/api/users/friends/" + accessTokenUrlSnippet + user.id
+        let url = Constants.serverUrl + "/api/users/friends/" + user.id + accessTokenUrlSnippet
         
         return Promise { fulfill, reject in
             Alamofire.request(url, method: .patch, parameters : ["friend":friend.id], encoding: JSONEncoding.default)
@@ -62,7 +62,7 @@ struct FriendService {
         
         let accessTokenUrlSnippet = "?access_token=\(accessToken)"
         
-        let url = Constants.serverUrl + "/api/users/friends/" + accessTokenUrlSnippet + user.id
+        let url = Constants.serverUrl + "/api/users/friends/" + user.id + accessTokenUrlSnippet
         
         return Promise { fulfill, reject in
             Alamofire.request(url, method: .delete, parameters : ["friend":friend.id], encoding: JSONEncoding.default)

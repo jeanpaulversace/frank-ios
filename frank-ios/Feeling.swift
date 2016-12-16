@@ -8,23 +8,16 @@
 
 import Foundation
 
-enum FeelingRating : Int {
-    case Zambezi = 1
-    case ArmyGreen
-    case BaliHai
-    case NewYorkPink
-}
-
 class Feeling {
     
     let id : String
-    let rating : FeelingRating
+    let rating : Int
     let creator : User
     let createdAt: Date
     let updatedAt: Date
     
     // Default initializaer
-    init(id: String, rating: FeelingRating, creator: User, createdAt: String, updatedAt: String) throws {
+    init(id: String, rating: Int, creator: User, createdAt: String, updatedAt: String) throws {
         
         self.id = id
         self.rating = rating
@@ -41,11 +34,15 @@ class Feeling {
             throw SerializationError.Missing("_id")
         }
         
-        guard let rating = json["rating"] as? FeelingRating else {
+        guard let rating = json["rating"] as? Int else {
             throw SerializationError.Missing("rating")
         }
         
-        guard let creator = json["creator"] as? User else {
+        guard let creatorJson = json["creator"] as? [String:Any] else {
+            throw SerializationError.Missing("creatorJson")
+        }
+        
+        guard let creator = try User.init(json: creatorJson) else {
             throw SerializationError.Missing("creator")
         }
         

@@ -8,7 +8,25 @@
 
 import UIKit
 
+enum SettingsControllerSegues {
+    case AddedMe
+    case AddFriends
+    case MyFriends
+    case Profile
+    case None
+}
+
+protocol SettingsControllerDelegate {
+    func settingsControllerDismissed(segue: SettingsControllerSegues)
+}
+
+protocol SettingsBackToFeelingsDelegate {
+    func popBackToFeelings()
+}
+
 class SettingsController: UIViewController {
+    
+    var delegate:SettingsControllerDelegate! = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +39,29 @@ class SettingsController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func profileButtonPressed(_ sender: Any) {
+        self.delegate.settingsControllerDismissed(segue: SettingsControllerSegues.Profile)
+    }
+    
+    @IBAction func addedMeButtonPressed(_ sender: Any) {
+        self.delegate.settingsControllerDismissed(segue: SettingsControllerSegues.AddedMe)
+    }
+    
+    @IBAction func addFriendsButtonPressed(_ sender: Any) {
+        self.delegate.settingsControllerDismissed(segue: SettingsControllerSegues.AddFriends)
+    }
+    
+    @IBAction func myFriendsButtonPressed(_ sender: Any) {
+        self.delegate.settingsControllerDismissed(segue: SettingsControllerSegues.MyFriends)
+    }
+    
+    @IBAction func backButtonPressed(_ sender: Any) {
+        self.delegate.settingsControllerDismissed(segue: SettingsControllerSegues.None)
+    }
 
+    @IBAction func swipedDown(_ sender: Any) {
+        self.delegate.settingsControllerDismissed(segue: SettingsControllerSegues.None)
+    }
     /*
     // MARK: - Navigation
 

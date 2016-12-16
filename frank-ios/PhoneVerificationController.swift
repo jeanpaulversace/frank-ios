@@ -69,18 +69,28 @@ class PhoneVerificationController: UIViewController, UITextFieldDelegate {
             throw SessionError.NoCurrentUser
         }
         
-        let userToBeUpdated = try User(id: currentUser.id, facebookId: currentUser.facebookId, accessToken: currentUser.accessToken, email: currentUser.email, name: currentUser.name, phoneNumber: phoneNumber, createdAt: FrankDateFormatter.formatter.string(from: currentUser.createdAt), updatedAt: FrankDateFormatter.formatter.string(from: Date()))
+        let userToBeUpdated = try User(id: currentUser.id, facebookId: currentUser.facebookId, accessToken: currentUser.accessToken, email: currentUser.email, name: currentUser.name, phoneNumber: phoneNumber, createdAt: FrankDateFormatter.formatter.string(from: currentUser.createdAt), updatedAt: FrankDateFormatter.formatter.string(from: Date()), friends: currentUser.friends)
         
         UserService.update(user: userToBeUpdated).then { result -> Void in
+      
+            if let resultDictionary = result as? [[String: Any]] {
                 
-                if result is [String:Any] {
-                    // Move to Terms & Services View
-                    OperationQueue.main.addOperation {
-                        [weak self] in
-                        self?.performSegue(withIdentifier: "TermsAndServices", sender: self)
+                // Set Current User global variable
+                do {
+                    let currentUser = try User(json: resultDictionary.first!)
+                    if let unwrappedCurrentUser = currentUser {
+                        UserService.currentUser = unwrappedCurrentUser
+                        OperationQueue.main.addOperation {
+                            [weak self] in
+                            self?.performSegue(withIdentifier: "TermsAndServices", sender: self)
+                        }
                     }
+                } catch {
+                    UserService.currentUser = nil
                 }
-                
+            
+            }
+            
         }.catch { error in
                 print("Error occurred trying to update user: \(error)")
         }

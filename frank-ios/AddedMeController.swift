@@ -21,6 +21,7 @@ enum FriendRequestStatus {
 
 class AddedMeController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    var delegate:FeelingsController! = nil
     @IBOutlet weak var tableView: UITableView!
     
     var activityIndicator : NVActivityIndicatorView!
@@ -44,13 +45,17 @@ class AddedMeController: UIViewController, UITableViewDelegate, UITableViewDataS
         updateTableViewWithFriendRequests(table: self.tableView)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Georgia-Italic", size: 24)!]
+    }
+    
     func updateTableViewWithFriendRequests(table: UITableView) {
         
         self.activityIndicator.startAnimating()
 
-        if let currentUser = UserService.currentUser {
+        if UserService.currentUser != nil {
             
-            FriendRequestService.get(user: currentUser).then { result -> Void in
+            FriendRequestService.get().then { result -> Void in
                 
                 self.activityIndicator.stopAnimating()
                 
@@ -58,6 +63,14 @@ class AddedMeController: UIViewController, UITableViewDelegate, UITableViewDataS
                 self.friendRequestsStatus = [String:FriendRequestStatus]()
                 
                 if let resultDictionary = result as? [[String:Any]] {
+                    
+                    if resultDictionary.count == 0 {
+                        self.createEmptyStateLabel()
+                        self.tableView.separatorStyle = .none
+                    } else {
+                        self.tableView.separatorStyle = .singleLine
+                    }
+                    
                     for object in resultDictionary {
                         let friendRequest = try FriendRequest.init(json: object)
                         if let unwrappedFriendRequest = friendRequest {
@@ -101,7 +114,19 @@ class AddedMeController: UIViewController, UITableViewDelegate, UITableViewDataS
         return friendRequests.count
     }
     
+    func createEmptyStateLabel() {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width:self.tableView.bounds.width, height: self.tableView.bounds.height))
+        label.font = UIFont (name: "Georgia-Italic", size: 24)
+        label.textColor = UIColor.darkText
+        label.textAlignment = .center
+        label.text = "No Friend Requests"
+        
+        self.tableView.addSubview(label)
+    }
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell : AddedMeTableViewCell = tableView.dequeueReusableCell(withIdentifier: "AddedMe") as! AddedMeTableViewCell
         
         // Configure the cell...
@@ -112,27 +137,26 @@ class AddedMeController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         cell.addButton.addTarget(self, action: #selector(self.addButtonPressed(sender:)), for: UIControlEvents.touchUpInside)
         
-        updateAddButton(indexPath: indexPath)
+        updateAddButton(cell: cell, indexPath: indexPath)
         
         return cell
     }
     
-    func updateAddButton(indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath) as? AddedMeTableViewCell {
-            
-            let fromUser = friendRequests[indexPath.row].fromUser
-            let status = friendRequestsStatus[fromUser.id]
-            
-            switch status! {
-            case FriendRequestStatus.Confirm:
-                cell.setConfirm()
-            case FriendRequestStatus.Add:
-                cell.setAdd()
-            case FriendRequestStatus.Friends:
-                cell.setFriends()
-            case FriendRequestStatus.Pending:
-                cell.setPending()
-            }
+    func updateAddButton(cell: AddedMeTableViewCell, indexPath: IndexPath) {
+        
+        let friendRequest = friendRequests[indexPath.row]
+        let fromUser = friendRequest.fromUser
+        let status = friendRequestsStatus[fromUser.id]
+        
+        switch status! {
+        case FriendRequestStatus.Confirm:
+            cell.setConfirm()
+        case FriendRequestStatus.Add:
+            cell.setAdd()
+        case FriendRequestStatus.Friends:
+            cell.setFriends()
+        case FriendRequestStatus.Pending:
+            cell.setPending()
         }
     }
     
@@ -140,7 +164,7 @@ class AddedMeController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         let buttonPosition = sender.convert(CGPoint.zero, to: self.tableView)
         let optIndexPath = self.tableView.indexPathForRow(at: buttonPosition)
-        if let indexPath = optIndexPath {
+        if let indexPath = optIndexPath, let cell = tableView.cellForRow(at: indexPath) as? AddedMeTableViewCell {
 
             let friendRequest = friendRequests[indexPath.row]
             let status = friendRequestsStatus[friendRequest.fromUser.id]
@@ -156,51 +180,89 @@ class AddedMeController: UIViewController, UITableViewDelegate, UITableViewDataS
                 createFriendRequest(friendRequest: friendRequest, indexPath: indexPath)
             case FriendRequestStatus.Friends:
                 // Go to server, remove friend from each user's friends
-                self.friendRequestsStatus[friendRequest.fromUser.id] = FriendRequestStatus.Add
-                removeFriends(friendRequest: friendRequest, indexPath: indexPath)
+                let alert = UIAlertController(title: "Unfriend this user?", message: "You will have to send another request to be friends", preferredStyle: UIAlertControllerStyle.actionSheet)
+                let unfriend = UIAlertAction(title: "Unfriend", style: UIAlertActionStyle.destructive, handler: { (alert) in
+                    self.friendRequestsStatus[friendRequest.fromUser.id] = FriendRequestStatus.Add
+                    self.removeFriends(friendRequest: friendRequest, indexPath: indexPath)
+                })
+                let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
+                alert.addAction(unfriend)
+                alert.addAction(cancel)
+                self.present(alert, animated: true, completion: nil)
             case FriendRequestStatus.Pending:
                 // Go to server, delete friend request
                 self.friendRequestsStatus[friendRequest.fromUser.id] = FriendRequestStatus.Add
                 deleteFriendRequest(friendRequest: friendRequest, indexPath: indexPath)
             }
             
-            self.updateAddButton(indexPath: indexPath)
+            self.updateAddButton(cell: cell, indexPath: indexPath)
         }
         
         
     }
     
     func confirmFriendRequest(friendRequest: FriendRequest, indexPath: IndexPath) {
-        let friend = friendRequest.fromUser
         
         if let currentUser = UserService.currentUser {
+            
+            let friend = friendRequest.fromUser
+            
             FriendService.addFriends(user: currentUser, friend: friend).then { result in
+                
                 return FriendRequestService.delete(friendRequest: friendRequest)
+                
                 }.then { result -> Void in
                 
-                // Adding Friends and Deleting Friend Request was successful
-                self.friendRequestsStatus[friendRequest.fromUser.id] = FriendRequestStatus.Friends
-                DispatchQueue.main.async {
-                    self.updateAddButton(indexPath: indexPath)
-                }
+                    // Adding Friends and Deleting Friend Request was successful
+                    self.friendRequestsStatus[friendRequest.fromUser.id] = FriendRequestStatus.Friends
+                    DispatchQueue.main.async {
+                        if let cell = self.tableView.cellForRow(at: indexPath) as? AddedMeTableViewCell {
+                            self.updateAddButton(cell: cell, indexPath: indexPath)
+                        }
+                    }
+                
+                }.catch { error in
+                    print("Error occurred during the server's confirmation of FriendRequest (delete Friend Request and add both User's to each others' Friends property: \(error)")
+                    
+                    self.friendRequestsStatus[friendRequest.fromUser.id] = FriendRequestStatus.Confirm
+                    DispatchQueue.main.async {
+                        if let cell = self.tableView.cellForRow(at: indexPath) as? AddedMeTableViewCell {
+                            self.updateAddButton(cell: cell, indexPath: indexPath)
+                        }
+                    }
                     
             }
         }
     }
     
     func createFriendRequest(friendRequest: FriendRequest, indexPath: IndexPath) {
-        let friend = friendRequest.fromUser
         
         if let currentUser = UserService.currentUser {
+            let friend = friendRequest.fromUser
             do {
-                let newFriendRequest = try FriendRequest.init(id: "", fromUser: currentUser, toUser: friend, fromToId: currentUser.id+friend.id, createdAt: FrankDateFormatter.formatter.string(from: Date()), updatedAt: FrankDateFormatter.formatter.string(from: Date()))
+                let newFriendRequest = try FriendRequest.init(id: "", fromUser: currentUser, toUser: friend, createdAt: FrankDateFormatter.formatter.string(from: Date()), updatedAt: FrankDateFormatter.formatter.string(from: Date()))
                 
                 FriendRequestService.create(friendRequests: [newFriendRequest]).then { result -> Void in
                     // Creating Friend Request was successful
-                    self.friendRequestsStatus[friendRequest.fromUser.id] = FriendRequestStatus.Pending
-                    DispatchQueue.main.async {
-                        self.updateAddButton(indexPath: indexPath)
+                    
+                    if let resultDictionary = result as? [[String:Any]], let createdFriendRequest = try FriendRequest(json: resultDictionary.first!), let cell = self.tableView.cellForRow(at: indexPath) as? AddedMeTableViewCell {
+                        
+                        self.friendRequests[indexPath.row] = createdFriendRequest
+                        self.friendRequestsStatus[createdFriendRequest.fromUser.id] = FriendRequestStatus.Pending
+                        DispatchQueue.main.async {
+                            self.updateAddButton(cell: cell, indexPath: indexPath)
+                        }
                     }
+                    }.catch { error in
+                        print("Error occurred during server creation of FriendRequest: \(error)")
+                        
+                        self.friendRequestsStatus[friendRequest.fromUser.id] = FriendRequestStatus.Add
+                        DispatchQueue.main.async {
+                            if let cell = self.tableView.cellForRow(at: indexPath) as? AddedMeTableViewCell {
+                                self.updateAddButton(cell: cell, indexPath: indexPath)
+                            }
+                        }
+                        
                 }
                 
             } catch {
@@ -210,17 +272,29 @@ class AddedMeController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     func removeFriends(friendRequest: FriendRequest, indexPath: IndexPath) {
-        let friend = friendRequest.fromUser
         
         if let currentUser = UserService.currentUser {
+            let friend = friendRequest.fromUser
+            
             FriendService.removeFriends(user: currentUser, friend: friend).then { result -> Void in
                 
-                // Removing Friends and Deleting Friend Request was successful
-                self.friendRequestsStatus[friendRequest.fromUser.id] = FriendRequestStatus.Add
+                // Removing Friends was successful
+                self.friendRequestsStatus[friend.id] = FriendRequestStatus.Add
                 DispatchQueue.main.async {
-                    self.updateAddButton(indexPath: indexPath)
-                }
+                    if let cell = self.tableView.cellForRow(at: indexPath) as? AddedMeTableViewCell {
+                        self.updateAddButton(cell: cell, indexPath: indexPath)
+                    }                }
                 
+                }.catch { error in
+                    print("Error occurred during server removal of both Users from each other's friends: \(error)")
+                    
+                    self.friendRequestsStatus[friend.id] = FriendRequestStatus.Friends
+                    DispatchQueue.main.async {
+                        if let cell = self.tableView.cellForRow(at: indexPath) as? AddedMeTableViewCell {
+                            self.updateAddButton(cell: cell, indexPath: indexPath)
+                        }
+                    }
+                    
             }
         }
     }
@@ -232,11 +306,23 @@ class AddedMeController: UIViewController, UITableViewDelegate, UITableViewDataS
             // Removing Friends and Deleting Friend Request was successful
             self.friendRequestsStatus[friendRequest.fromUser.id] = FriendRequestStatus.Add
             DispatchQueue.main.async {
-                self.updateAddButton(indexPath: indexPath)
+                if let cell = self.tableView.cellForRow(at: indexPath) as? AddedMeTableViewCell {
+                    self.updateAddButton(cell: cell, indexPath: indexPath)
+                }
             }
+            
+            }.catch { error in
+                print("Error occurred during server deletion of FriendRequest: \(error)")
+                
+                self.friendRequestsStatus[friendRequest.fromUser.id] = FriendRequestStatus.Pending
+                DispatchQueue.main.async {
+                    if let cell = self.tableView.cellForRow(at: indexPath) as? AddedMeTableViewCell {
+                        self.updateAddButton(cell: cell, indexPath: indexPath)
+                    }
+                }
+                
         }
     }
-
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -272,8 +358,12 @@ class AddedMeController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     */
 
-    /*
     // MARK: - Navigation
+    @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {
+        delegate.popBackToFeelings()
+    }
+
+    /*
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

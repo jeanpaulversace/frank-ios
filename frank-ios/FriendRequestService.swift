@@ -13,16 +13,16 @@ import PromiseKit
 struct FriendRequestService {
     
     
-    static func get(user: User) -> Promise<Any> {
+    static func get() -> Promise<Any> {
         
         let accessToken = FBSDKAccessToken.current().tokenString!
         
         let accessTokenUrlSnippet = "?access_token=\(accessToken)"
         
-        let url = Constants.serverUrl + "/api/friend-requests/" + accessTokenUrlSnippet
+        let url = Constants.serverUrl + "/api/friend-requests/" + accessTokenUrlSnippet + "&toUser=\(UserService.currentUser?.id)"
         
         return Promise { fulfill, reject in
-            Alamofire.request(url, method: .get, parameters: ["user":user.id], encoding: JSONEncoding.default, headers: nil)
+            Alamofire.request(url, method: .get, encoding: JSONEncoding.default, headers: nil)
                 .validate()
                 .responseJSON { response in
                     switch response.result {
@@ -71,8 +71,7 @@ struct FriendRequestService {
         
         let accessTokenUrlSnippet = "?access_token=\(accessToken)"
         
-        let url = Constants.serverUrl + "/api/friend-requests/" + accessTokenUrlSnippet + friendRequest.id
-        
+        let url = Constants.serverUrl + "/api/friend-requests/" + friendRequest.id + accessTokenUrlSnippet
         return Promise { fulfill, reject in
             Alamofire.request(url, method: .delete, parameters: [:], encoding: JSONEncoding.default, headers: nil)
                 .validate()

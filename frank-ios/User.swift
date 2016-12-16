@@ -25,10 +25,10 @@ class User {
     let phoneNumber : String
     let createdAt : Date
     let updatedAt : Date
-    // let friends : Set<User>
+    let friends : [String]
     
     // Default initializer
-    init(id: String, facebookId: String, accessToken: String, email: String, name: String, phoneNumber: String, createdAt: String, updatedAt: String) throws {
+    init(id: String, facebookId: String, accessToken: String, email: String, name: String, phoneNumber: String, createdAt: String, updatedAt: String, friends: [String]) throws {
         
         self.id = id
         self.facebookId = facebookId
@@ -38,6 +38,7 @@ class User {
         self.phoneNumber = phoneNumber
         self.createdAt = FrankDateFormatter.formatter.date(from: createdAt)!
         self.updatedAt = FrankDateFormatter.formatter.date(from: updatedAt)!
+        self.friends = friends
     }
     
     // JSON initializer
@@ -76,6 +77,10 @@ class User {
             throw SerializationError.Missing("updatedAt")
         }
         
+        guard let friends = json["friends"] as? [String] else {
+            throw SerializationError.Missing("friends")
+        }
+        
         // Initialize properties
         self.id = id
         self.facebookId = facebookId
@@ -85,6 +90,7 @@ class User {
         self.phoneNumber = phoneNumber
         self.createdAt = FrankDateFormatter.formatter.date(from: createdAt)!
         self.updatedAt = FrankDateFormatter.formatter.date(from: updatedAt)!
+        self.friends = friends
         
     }
     
