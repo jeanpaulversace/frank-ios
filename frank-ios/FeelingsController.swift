@@ -16,24 +16,64 @@ class FeelingsController: UIViewController, SettingsControllerDelegate, Settings
     var hasUserBoughtIn : Bool = false
     
     @IBOutlet weak var kolodaView: KolodaView!
+    
     @IBOutlet weak var noFeelingsLabel: UILabel!
+    @IBOutlet weak var reloadFeelingsButton: UIButton!
+    
+    @IBOutlet weak var textButton: UIButton!
+    @IBOutlet weak var callButton: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
         
-        self.noFeelingsLabel.isHidden = true
         
         kolodaView.delegate = self
         kolodaView.dataSource = self
         
+        initializeViews()
+        
         checkForUserBuyIn()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func initializeViews() {
+        
+        reloadFeelingsButton.layer.borderColor = UIColor.darkGray.cgColor
+        reloadFeelingsButton.layer.borderWidth = 0.5
+        reloadFeelingsButton.layer.cornerRadius = 6
+        
+        textButton.layer.borderColor = UIColor.darkGray.cgColor
+        textButton.layer.borderWidth = 1.0
+        textButton.layer.cornerRadius = textButton.bounds.width/2
+        
+        callButton.layer.borderColor = UIColor.darkGray.cgColor
+        callButton.layer.borderWidth = 1.0
+        callButton.layer.cornerRadius = callButton.bounds.width/2
+    }
+    
+    func changeViewsForFeelings(empty: Bool) {
+        
+        if empty {
+            noFeelingsLabel.isHidden = false
+            reloadFeelingsButton.isHidden = true
+            textButton.isHidden = true
+            callButton.isHidden = true
+        } else {
+            noFeelingsLabel.isHidden = true
+            reloadFeelingsButton.isHidden = true
+            textButton.isHidden = false
+            callButton.isHidden = false
+        }
+        
+    }
+    
+    func changeViewsForEndOfFeelings() {
+        textButton.isHidden = true
+        callButton.isHidden = true
+        reloadFeelingsButton.isHidden = false
+        noFeelingsLabel.isHidden = true
     }
     
     func checkForUserBuyIn() {
@@ -58,23 +98,38 @@ class FeelingsController: UIViewController, SettingsControllerDelegate, Settings
             
             if let resultDictionary = result as? [[String:Any]] {
                 
+                if (resultDictionary.count == 0) {
+                    self.changeViewsForFeelings(empty: true)
+                } else {
+                    self.changeViewsForFeelings(empty: false)
+                }
+                
                 self.feelings = [Feeling]()
+                
                 var uniqueUsers = [String]()
+                var tempFeelings = [Feeling]()
                 
                 for object in resultDictionary {
                     let feeling = try Feeling.init(json: object)
                     if let unwrappedFeeling = feeling {
-                        if !uniqueUsers.contains(unwrappedFeeling.creator.id) {
-                            uniqueUsers.append(unwrappedFeeling.creator.id)
-                            self.feelings.append(unwrappedFeeling)
-                        }
+                        tempFeelings.append(unwrappedFeeling)
                     }
                 }
                 
-                self.feelings = self.feelings.sorted(by: { $0.createdAt > $1.createdAt })
+                tempFeelings = tempFeelings.sorted(by: { $0.createdAt > $1.createdAt })
+                
+                for feeling in tempFeelings {
+                    if !uniqueUsers.contains(feeling.creator.id) {
+                        uniqueUsers.append(feeling.creator.id)
+                        self.feelings.append(feeling)
+                    }
+                }
             }
             
-            self.kolodaView.reloadData()
+            
+            DispatchQueue.main.async {
+                self.kolodaView.resetCurrentCardIndex()
+            }
             
             }.catch { error in
                 print("Error retrieving User's Feelings feed from the server: \(error)")
@@ -83,12 +138,24 @@ class FeelingsController: UIViewController, SettingsControllerDelegate, Settings
     
     // MARK - Button Pressed Methods
     
-    func textButtonPressed(sender: UIButton) {
+    @IBAction func textButtonPressed(_ sender: Any) {
         let feeling = feelings[kolodaView.currentCardIndex]
         
         let messageVC = MFMessageComposeViewController()
         
-        messageVC.body = "What's up? How was your day?";
+        switch feeling.rating {
+        case 1:
+            messageVC.body = "Did you have a bad day? What happened?"
+        case 2:
+            messageVC.body = "Whatcha thinking about?"
+        case 3:
+            messageVC.body = "Hey! Wanna hang out soon?"
+        case 4:
+            messageVC.body = "Tell me about your day!"
+        default:
+            messageVC.body = "What's up? How was your day?";
+        }
+        
         messageVC.recipients = [feeling.creator.phoneNumber]
         messageVC.messageComposeDelegate = self;
         
@@ -113,11 +180,20 @@ class FeelingsController: UIViewController, SettingsControllerDelegate, Settings
         controller.dismiss(animated: true, completion: nil)
     }
     
-    func callButtonPressed(sender: UIButton) {
+    
+    @IBAction func callButtonPressed(_ sender: Any) {
         let feeling = feelings[kolodaView.currentCardIndex]
-        if let url = NSURL(string: "tel://\(feeling.creator.phoneNumber)"), UIApplication.shared.canOpenURL(url as URL) {
-            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
-        }
+        let name = feeling.creator.name
+        let phoneNumber = feeling.creator.phoneNumber
+        
+        let alert = UIAlertController(title: "Call \(name)?", message: "\(phoneNumber) will be dialed", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Call", style: UIAlertActionStyle.default, handler: { action in
+            if let url = NSURL(string: "tel://\(feeling.creator.phoneNumber)"), UIApplication.shared.canOpenURL(url as URL) {
+                UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+            }
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
 
     
@@ -139,6 +215,9 @@ class FeelingsController: UIViewController, SettingsControllerDelegate, Settings
         }
     }
     
+    @IBAction func reloadFeelingsButtonPressed(_ sender: UIButton) {
+        loadFeelings()
+    }
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -158,8 +237,11 @@ class FeelingsController: UIViewController, SettingsControllerDelegate, Settings
         } else if segue.identifier == "AddFriends" {
             let viewController = segue.destination as! AddContactsController
             viewController.delegate = self
-        }else if segue.identifier == "MyFriends" {
+        } else if segue.identifier == "MyFriends" {
             let viewController = segue.destination as! MyFriendsController
+            viewController.delegate = self
+        } else if segue.identifier == "MyProfile" {
+            let viewController = segue.destination as! MyProfileController
             viewController.delegate = self
         }
     }
@@ -191,8 +273,8 @@ class FeelingsController: UIViewController, SettingsControllerDelegate, Settings
         self.dismiss(animated: true, completion: {
             
             switch segue {
-            case SettingsControllerSegues.Profile:
-                self.performSegue(withIdentifier: "Profile", sender: self)
+            case SettingsControllerSegues.MyProfile:
+                self.performSegue(withIdentifier: "MyProfile", sender: self)
             case SettingsControllerSegues.AddedMe:
                 self.performSegue(withIdentifier: "AddedMe", sender: self)
             case SettingsControllerSegues.AddFriends:
@@ -212,38 +294,43 @@ class FeelingsController: UIViewController, SettingsControllerDelegate, Settings
     }
 }
 
-//MARK: KolodaViewDelegate
+// MARK - KolodaViewDelegate
 extension FeelingsController: KolodaViewDelegate {
     
     func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
-    
+        changeViewsForEndOfFeelings()
     }
     
     func koloda(_ koloda: KolodaView, didSelectCardAtIndex index: UInt) {
-        
+        // Do nothing
     }
 }
 
-//MARK: KolodaViewDataSource
 extension FeelingsController: KolodaViewDataSource {
     
-    func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
+    public func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
+        if let feelingCard = Bundle.main.loadNibNamed("FeelingCardView", owner: self, options: nil)?[0] as? FeelingCardView {
+            
+            let feeling = self.feelings[Int(index)]
+            let profilePictureUrl = NSURL(string: "https://graph.facebook.com/\(feeling.creator.facebookId)/picture?type=large&return_ssl_resources=1")
+            
+            feelingCard.frame = kolodaView.frame
+            feelingCard.configureFeelingCard(name: feeling.creator.name, rating: feeling.rating, profilePictureUrl: profilePictureUrl as! URL)
+            
+            return feelingCard
+            
+        } else {
+            return UIView(frame: kolodaView.frame)
+        }
+    }
+
+    
+    public func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
         return self.feelings.count
     }
-    
-    func koloda(koloda: KolodaView, viewForCardAtIndex index: UInt) -> FeelingCardView {
-        let feelingCard = FeelingCardView(frame: self.kolodaView.frame)
-        let feeling = self.feelings[Int(index)]
-        let profilePictureUrl = NSURL(string: "http://graph.facebook.com/\(feeling.creator.facebookId)/picture?type=large")
-        
-        feelingCard.configureFeelingCard(name: feeling.creator.name, rating: feeling.rating, profilePictureUrl: profilePictureUrl as! URL)
-        
-        feelingCard.textButton.addTarget(self, action: #selector(self.textButtonPressed(sender:)), for: UIControlEvents.touchUpInside)
-        feelingCard.callButton.addTarget(self, action: #selector(self.callButtonPressed(sender:)), for: UIControlEvents.touchUpInside)
-    }
+
     
     func koloda(koloda: KolodaView, viewForCardOverlayAtIndex index: UInt) -> OverlayView? {
-        return Bundle.main.loadNibNamed("OverlayView", owner: self, options: nil)?[0] as? OverlayView
+        return Bundle.main.loadNibNamed("FeelingOverlayView", owner: self, options: nil)?[0] as? OverlayView
     }
-    
 }

@@ -1,0 +1,6 @@
+framework module Pods_frank_ios {
+  umbrella header "Pods-frank-ios-umbrella.h"
+
+  export *
+  module * { export * }
+}

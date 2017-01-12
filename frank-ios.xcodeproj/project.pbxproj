@@ -25,6 +25,9 @@
 		CC6DF3391DF8FC2700534018 /* Feeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6DF3381DF8FC2700534018 /* Feeling.swift */; };
 		CC6DF33B1DF8FD9300534018 /* FeelingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6DF33A1DF8FD9300534018 /* FeelingService.swift */; };
 		CC6DF33D1DF9010D00534018 /* MyFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6DF33C1DF9010D00534018 /* MyFriendsController.swift */; };
+		CC70FBCE1E0892720019924A /* MyProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC70FBCD1E0892720019924A /* MyProfileController.swift */; };
+		CC7F2C781E0494AB001FBD47 /* FeelingOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7F2C771E0494AB001FBD47 /* FeelingOverlayView.swift */; };
+		CC7F2C7A1E0494C2001FBD47 /* FeelingOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC7F2C791E0494C2001FBD47 /* FeelingOverlayView.xib */; };
 		CCB035B51DDD3CE6008F5119 /* FeelingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB035B41DDD3CE6008F5119 /* FeelingsController.swift */; };
 		CCB035B81DDE3F84008F5119 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB035B71DDE3F84008F5119 /* User.swift */; };
 		CCB035BC1DDF7850008F5119 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB035BB1DDF7850008F5119 /* UserService.swift */; };
@@ -62,6 +65,9 @@
 		CC6DF3381DF8FC2700534018 /* Feeling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feeling.swift; sourceTree = "<group>"; };
 		CC6DF33A1DF8FD9300534018 /* FeelingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeelingService.swift; sourceTree = "<group>"; };
 		CC6DF33C1DF9010D00534018 /* MyFriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFriendsController.swift; sourceTree = "<group>"; };
+		CC70FBCD1E0892720019924A /* MyProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfileController.swift; sourceTree = "<group>"; };
+		CC7F2C771E0494AB001FBD47 /* FeelingOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeelingOverlayView.swift; sourceTree = "<group>"; };
+		CC7F2C791E0494C2001FBD47 /* FeelingOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeelingOverlayView.xib; sourceTree = "<group>"; };
 		CCB035B41DDD3CE6008F5119 /* FeelingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeelingsController.swift; sourceTree = "<group>"; };
 		CCB035B71DDE3F84008F5119 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CCB035BB1DDF7850008F5119 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
@@ -138,6 +144,7 @@
 				CC6DF32B1DF71E0400534018 /* SettingsController.swift */,
 				CC6DF3321DF7685B00534018 /* AddedMeController.swift */,
 				CC6DF33C1DF9010D00534018 /* MyFriendsController.swift */,
+				CC70FBCD1E0892720019924A /* MyProfileController.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -197,6 +204,8 @@
 			children = (
 				CCBFB5C81E03B90A00E53CD2 /* FeelingCardView.swift */,
 				CCBFB5CE1E03BA0600E53CD2 /* FeelingCardView.xib */,
+				CC7F2C771E0494AB001FBD47 /* FeelingOverlayView.swift */,
+				CC7F2C791E0494C2001FBD47 /* FeelingOverlayView.xib */,
 			);
 			name = Feelings;
 			sourceTree = "<group>";
@@ -333,6 +342,7 @@
 				CC08D91D1DEFA7C500681E9D /* AddContactsTableViewCell.xib in Resources */,
 				CCBFB5CF1E03BA0600E53CD2 /* FeelingCardView.xib in Resources */,
 				CCC6E1AE1D7A388B001890B8 /* LaunchScreen.storyboard in Resources */,
+				CC7F2C7A1E0494C2001FBD47 /* FeelingOverlayView.xib in Resources */,
 				CCC6E1AB1D7A388B001890B8 /* Assets.xcassets in Resources */,
 				CC6DF3311DF75FD400534018 /* AddedMeTableViewCell.xib in Resources */,
 				CCC6E1A91D7A388B001890B8 /* Main.storyboard in Resources */,
@@ -400,6 +410,7 @@
 				CC6DF3331DF7685B00534018 /* AddedMeController.swift in Sources */,
 				CC0EF6891E00B4450034DA8F /* Inspectables.swift in Sources */,
 				CC3765481DDBFEF7006FA371 /* LoginController.swift in Sources */,
+				CC7F2C781E0494AB001FBD47 /* FeelingOverlayView.swift in Sources */,
 				CC08D9211DF0E6A200681E9D /* FriendRequest.swift in Sources */,
 				CC6DF3301DF75FD400534018 /* AddedMeTableViewCell.swift in Sources */,
 				CC08D91C1DEFA7C500681E9D /* AddContactsTableViewCell.swift in Sources */,
@@ -420,6 +431,7 @@
 				CCCADB3F1E034766006F534F /* StringExtension.swift in Sources */,
 				CCBFB5D11E03C13700E53CD2 /* UIImageViewExtension.swift in Sources */,
 				CC08D9231DF2297A00681E9D /* FriendRequestService.swift in Sources */,
+				CC70FBCE1E0892720019924A /* MyProfileController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

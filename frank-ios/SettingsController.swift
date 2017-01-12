@@ -12,7 +12,7 @@ enum SettingsControllerSegues {
     case AddedMe
     case AddFriends
     case MyFriends
-    case Profile
+    case MyProfile
     case None
 }
 
@@ -40,7 +40,7 @@ class SettingsController: UIViewController {
     }
     
     @IBAction func profileButtonPressed(_ sender: Any) {
-        self.delegate.settingsControllerDismissed(segue: SettingsControllerSegues.Profile)
+        self.delegate.settingsControllerDismissed(segue: SettingsControllerSegues.MyProfile)
     }
     
     @IBAction func addedMeButtonPressed(_ sender: Any) {

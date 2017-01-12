@@ -22,18 +22,26 @@ enum FriendRequestStatus {
 class AddedMeController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var delegate:FeelingsController! = nil
+    
     @IBOutlet weak var tableView: UITableView!
+    
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
+        
+        return refreshControl
+    }()
     
     var activityIndicator : NVActivityIndicatorView!
     
     var friendRequests = [FriendRequest]()
-    
     var friendRequestsStatus = [String:FriendRequestStatus]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         activityIndicator = NVActivityIndicatorView(frame: self.view.frame, type: NVActivityIndicatorType.ballScaleRipple, color: UIColor.darkGray, padding: NVActivityIndicatorView.DEFAULT_PADDING)
+        self.tableView.addSubview(self.refreshControl)
         
         // Hide separator lines for intial empty tableview
         tableView.separatorStyle = .none
@@ -47,6 +55,14 @@ class AddedMeController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Georgia-Italic", size: 24)!]
+    }
+    
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        // Do some reloading of data and update the table view's data source
+        // Fetch more objects from a web service, for example...
+        
+        updateTableViewWithFriendRequests(table: tableView)
+        refreshControl.endRefreshing()
     }
     
     func updateTableViewWithFriendRequests(table: UITableView) {
@@ -80,7 +96,6 @@ class AddedMeController: UIViewController, UITableViewDelegate, UITableViewDataS
                     }
                     
                     DispatchQueue.main.async {
-                        self.tableView.separatorStyle = .singleLine
                         self.tableView.reloadData()
                     }
                 }

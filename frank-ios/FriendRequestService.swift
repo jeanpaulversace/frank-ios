@@ -19,7 +19,7 @@ struct FriendRequestService {
         
         let accessTokenUrlSnippet = "?access_token=\(accessToken)"
         
-        let url = Constants.serverUrl + "/api/friend-requests/" + accessTokenUrlSnippet + "&toUser=\(UserService.currentUser?.id)"
+        let url = Constants.serverUrl + "/api/friend-requests/" + accessTokenUrlSnippet
         
         return Promise { fulfill, reject in
             Alamofire.request(url, method: .get, encoding: JSONEncoding.default, headers: nil)

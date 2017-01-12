@@ -8,7 +8,6 @@
 
 import UIKit
 import FBSDKLoginKit
-import Spring
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

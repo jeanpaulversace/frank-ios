@@ -16,63 +16,35 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yYX-km-R0Z">
-                    <rect key="frame" x="112" y="45" width="150" height="150"/>
+                    <rect key="frame" x="74.5" y="45" width="225" height="225"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="150" id="IIc-kJ-jY6"/>
-                        <constraint firstAttribute="width" constant="150" id="ryT-z6-k6Y"/>
+                        <constraint firstAttribute="height" constant="225" id="IIc-kJ-jY6"/>
+                        <constraint firstAttribute="width" constant="225" id="ryT-z6-k6Y"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Winston Tri" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fLP-Wp-d1y">
-                    <rect key="frame" x="30" y="235" width="315" height="60"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fLP-Wp-d1y">
+                    <rect key="frame" x="74.5" y="300" width="226" height="45"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="60" id="BIe-43-PXb"/>
+                        <constraint firstAttribute="height" constant="45" id="BIe-43-PXb"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="36"/>
+                    <fontDescription key="fontDescription" name="Georgia-Italic" family="Georgia" pointSize="30"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7XQ-TC-Iyg">
-                    <rect key="frame" x="217.5" y="355" width="60" height="60"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="60" id="LiR-BV-E4T"/>
-                        <constraint firstAttribute="width" constant="60" id="d2c-AE-sF8"/>
-                    </constraints>
-                    <inset key="imageEdgeInsets" minX="10" minY="10" maxX="5" maxY="5"/>
-                    <state key="normal" title="Button" image="call"/>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5O0-hg-9tJ">
-                    <rect key="frame" x="97.5" y="355" width="60" height="60"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="60" id="FtQ-Oq-NPY"/>
-                        <constraint firstAttribute="width" constant="60" id="TZc-2Q-huF"/>
-                    </constraints>
-                    <state key="normal" image="text"/>
-                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="yYX-km-R0Z" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="45" id="G9m-vU-MaW"/>
-                <constraint firstItem="7XQ-TC-Iyg" firstAttribute="top" secondItem="fLP-Wp-d1y" secondAttribute="bottom" constant="60" id="Osk-7z-Y2P"/>
-                <constraint firstItem="fLP-Wp-d1y" firstAttribute="top" secondItem="yYX-km-R0Z" secondAttribute="bottom" constant="40" id="S4A-pn-eGi"/>
-                <constraint firstItem="5O0-hg-9tJ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-60" id="VwF-No-twt"/>
-                <constraint firstItem="fLP-Wp-d1y" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="Zf7-qo-dj5"/>
-                <constraint firstItem="5O0-hg-9tJ" firstAttribute="top" secondItem="fLP-Wp-d1y" secondAttribute="bottom" constant="60" id="cxK-0a-r4B"/>
-                <constraint firstItem="7XQ-TC-Iyg" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="60" id="eaE-Tb-bOe"/>
+                <constraint firstItem="fLP-Wp-d1y" firstAttribute="top" secondItem="yYX-km-R0Z" secondAttribute="bottom" constant="30" id="S4A-pn-eGi"/>
+                <constraint firstItem="fLP-Wp-d1y" firstAttribute="leading" secondItem="yYX-km-R0Z" secondAttribute="leading" id="iBs-7D-PLJ"/>
                 <constraint firstItem="fLP-Wp-d1y" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="mjN-sp-Nep"/>
                 <constraint firstItem="yYX-km-R0Z" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="yfy-f5-q7x"/>
-                <constraint firstAttribute="trailing" secondItem="fLP-Wp-d1y" secondAttribute="trailing" constant="30" id="ymQ-HT-7Gh"/>
             </constraints>
             <connections>
-                <outlet property="callButton" destination="7XQ-TC-Iyg" id="sxh-eO-uY9"/>
                 <outlet property="nameLabel" destination="fLP-Wp-d1y" id="fdK-AY-jDA"/>
                 <outlet property="profilePictureImageView" destination="yYX-km-R0Z" id="aEN-fO-oPX"/>
-                <outlet property="textButton" destination="5O0-hg-9tJ" id="7E1-qp-8Ad"/>
             </connections>
             <point key="canvasLocation" x="131.5" y="-201.5"/>
         </view>
     </objects>
-    <resources>
-        <image name="call" width="50" height="50"/>
-        <image name="text" width="50" height="50"/>
-    </resources>
 </document>

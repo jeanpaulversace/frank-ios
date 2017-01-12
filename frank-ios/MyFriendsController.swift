@@ -15,6 +15,12 @@ class MyFriendsController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var tableView: UITableView!
     
     var activityIndicator : NVActivityIndicatorView!
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
+        
+        return refreshControl
+    }()
     
     var friends = [User]()
     var friendRequests = [Int:FriendRequest]()
@@ -25,6 +31,7 @@ class MyFriendsController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewDidLoad()
         
         activityIndicator = NVActivityIndicatorView(frame: self.view.frame, type: NVActivityIndicatorType.ballScaleRipple, color: UIColor.darkGray, padding: NVActivityIndicatorView.DEFAULT_PADDING)
+        self.tableView.addSubview(self.refreshControl)
         
         // Hide separator lines for intial empty tableview
         tableView.separatorStyle = .none
@@ -40,6 +47,15 @@ class MyFriendsController: UIViewController, UITableViewDelegate, UITableViewDat
         self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Georgia-Italic", size: 24)!]
     }
     
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        // Do some reloading of data and update the table view's data source
+        // Fetch more objects from a web service, for example...
+        
+        updateTableViewWithFriends(table: tableView)
+        refreshControl.endRefreshing()
+    }
+    
+    
     func updateTableViewWithFriends(table: UITableView) {
         
         self.activityIndicator.startAnimating()
@@ -47,11 +63,11 @@ class MyFriendsController: UIViewController, UITableViewDelegate, UITableViewDat
         if let currentUser = UserService.currentUser {
             
             FriendService.get(user: currentUser).then { result -> Void in
+                
                 self.activityIndicator.stopAnimating()
                 
                 self.friends = [User]()
                 self.friendRequests = [Int:FriendRequest]()
-
                 self.friendRequestsStatus = [String:FriendRequestStatus]()
                 
                 if let resultDictionary = result as? [[String:Any]] {
@@ -72,7 +88,6 @@ class MyFriendsController: UIViewController, UITableViewDelegate, UITableViewDat
                     }
                     
                     DispatchQueue.main.async {
-                        self.tableView.separatorStyle = .singleLine
                         self.tableView.reloadData()
                     }
                 }

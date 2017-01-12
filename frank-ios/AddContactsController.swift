@@ -20,7 +20,15 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var skipButton: UIBarButtonItem!
     
     var delegate:FeelingsController! = nil
+    
     var activityIndicator : NVActivityIndicatorView!
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
+        
+        return refreshControl
+    }()
+    
     
     var users = [User]()
     var selectedUsers = [User]()
@@ -39,6 +47,7 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
         let addContactsTableViewCellNib = UINib(nibName: "AddContactsTableViewCell", bundle: nil)
         tableView.register(addContactsTableViewCellNib, forCellReuseIdentifier: "AddContacts")
         
+        self.tableView.addSubview(self.refreshControl)
         updateTableViewWithPossibleFriends(tableView: self.tableView)
         
     }
@@ -47,17 +56,18 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
         // Customize Navigation Bar
         self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Georgia-Italic", size: 24)!]
         
-        skipButton.setTitleTextAttributes([
-            NSFontAttributeName: UIFont(name: "Georgia-Italic", size: 24.0)!,
-            NSForegroundColorAttributeName: UIColor.darkText],
-                                          for: UIControlState.normal)
-        
         if delegate != nil {
             skipButton.isEnabled = false
             skipButton.tintColor = UIColor.clear
             backButton.isEnabled = true
             backButton.tintColor = UIColor.darkText
         } else {
+            
+            skipButton.setTitleTextAttributes([
+                NSFontAttributeName: UIFont(name: "Georgia-Italic", size: 24.0)!,
+                NSForegroundColorAttributeName: UIColor.darkText],
+                                              for: UIControlState.normal)
+            
             skipButton.isEnabled = true
             skipButton.tintColor = UIColor.darkText
             backButton.isEnabled = false
@@ -65,6 +75,15 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
         }
         
     }
+    
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        // Do some reloading of data and update the table view's data source
+        // Fetch more objects from a web service, for example...
+        
+        updateTableViewWithPossibleFriends(tableView: tableView)
+        refreshControl.endRefreshing()
+    }
+    
     
     @IBAction func sendButtonPressed(_ sender: Any) {
         do {
@@ -100,12 +119,11 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
             FriendRequestService.create(friendRequests: friendRequestArray).then { result -> Void in
 
                 // FriendRequest creation was successful, go to Feelings View
-                if let resultDictionary = result as? [[String:Any]] {
-                    self.segueToFeelingsView()
-                }
+                self.segueToFeelingsView()
                 
+                }.catch { error in
+                    print("Error creating Friend Requests on the server-side: \(error)")
             }
-            
         }
     }
     

@@ -94,19 +94,56 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="esX-lO-dvc" customClass="KolodaView" customModule="Koloda">
-                                <rect key="frame" x="37.5" y="133.5" width="300" height="400"/>
+                                <rect key="frame" x="37.5" y="100" width="300" height="400"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="400" id="7l8-bD-pdE"/>
                                     <constraint firstAttribute="width" constant="300" id="Y6H-Z1-Gyw"/>
                                 </constraints>
                             </view>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="laM-ik-qDn">
+                                <rect key="frame" x="88" y="303" width="200" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Georgia-Italic" family="Georgia" pointSize="24"/>
+                                <state key="normal" title="reload">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="reloadFeelingsButtonPressed:" destination="Y8U-C7-OTX" eventType="touchUpInside" id="4X8-nV-5wa"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PZu-Cx-kSe">
+                                <rect key="frame" x="97.5" y="562" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="Hi4-RI-g8v"/>
+                                    <constraint firstAttribute="height" constant="60" id="dhJ-71-Ryu"/>
+                                </constraints>
+                                <state key="normal" image="text"/>
+                                <connections>
+                                    <action selector="textButtonPressed:" destination="Y8U-C7-OTX" eventType="touchUpInside" id="c2u-aV-o3S"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EdD-Ef-Ks6">
+                                <rect key="frame" x="217.5" y="562" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="dHr-ql-JUQ"/>
+                                    <constraint firstAttribute="width" constant="60" id="sMQ-oA-Pba"/>
+                                </constraints>
+                                <state key="normal" image="call"/>
+                                <connections>
+                                    <action selector="callButtonPressed:" destination="Y8U-C7-OTX" eventType="touchUpInside" id="dwF-c3-cgR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="HPU-f3-pMy" firstAttribute="centerX" secondItem="8cd-WC-6n9" secondAttribute="centerX" id="3KC-zs-0Pv"/>
                             <constraint firstItem="HPU-f3-pMy" firstAttribute="centerY" secondItem="8cd-WC-6n9" secondAttribute="centerY" multiplier="0.67" id="6x4-b8-ovQ"/>
+                            <constraint firstItem="d5t-5V-3dJ" firstAttribute="top" secondItem="EdD-Ef-Ks6" secondAttribute="bottom" constant="45" id="StB-Lw-6ks"/>
                             <constraint firstItem="esX-lO-dvc" firstAttribute="centerX" secondItem="8cd-WC-6n9" secondAttribute="centerX" id="lHl-Ub-sVK"/>
-                            <constraint firstItem="esX-lO-dvc" firstAttribute="centerY" secondItem="8cd-WC-6n9" secondAttribute="centerY" id="nHI-7A-GbG"/>
+                            <constraint firstItem="esX-lO-dvc" firstAttribute="centerY" secondItem="8cd-WC-6n9" secondAttribute="centerY" multiplier="0.9" id="nHI-7A-GbG"/>
+                            <constraint firstItem="d5t-5V-3dJ" firstAttribute="top" secondItem="PZu-Cx-kSe" secondAttribute="bottom" constant="45" id="svy-Ra-FyK"/>
+                            <constraint firstItem="EdD-Ef-Ks6" firstAttribute="centerX" secondItem="8cd-WC-6n9" secondAttribute="centerX" constant="60" id="y31-00-XRP"/>
+                            <constraint firstItem="PZu-Cx-kSe" firstAttribute="centerX" secondItem="8cd-WC-6n9" secondAttribute="centerX" constant="-60" id="zZM-zJ-pa2"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Suz-KV-YUe">
@@ -128,13 +165,17 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="callButton" destination="EdD-Ef-Ks6" id="0Pd-rc-g7i"/>
                         <outlet property="kolodaView" destination="esX-lO-dvc" id="5ug-s9-dZn"/>
                         <outlet property="noFeelingsLabel" destination="HPU-f3-pMy" id="U86-5s-lY4"/>
+                        <outlet property="reloadFeelingsButton" destination="laM-ik-qDn" id="QAy-F0-fIr"/>
+                        <outlet property="textButton" destination="PZu-Cx-kSe" id="0uv-cX-5ut"/>
                         <segue destination="zUG-PK-v9Y" kind="presentation" identifier="Settings" id="7St-2k-vNn"/>
                         <segue destination="HOU-zM-gmF" kind="show" identifier="AddFriends" id="zrQ-k7-f7n"/>
                         <segue destination="3YT-0G-QO3" kind="show" identifier="AddedMe" id="U7D-bD-vSr"/>
                         <segue destination="szW-g8-3pA" kind="show" identifier="MyFriends" id="4ku-EW-X4w"/>
                         <segue destination="wUw-Pr-EM8" kind="presentation" identifier="Create" id="eQU-B7-KfR"/>
+                        <segue destination="8TA-ew-LGD" kind="show" identifier="MyProfile" id="Mc5-nO-T4i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ydd-2G-jix" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -196,12 +237,12 @@
                                     <action selector="buttonFourPressed:" destination="wUw-Pr-EM8" eventType="touchUpInside" id="hYk-59-BT4"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L1Z-gN-1mB">
-                                <rect key="frame" x="45" y="577" width="285" height="60"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="L1Z-gN-1mB">
+                                <rect key="frame" x="45" y="547" width="285" height="90"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="YRv-pl-yyJ"/>
+                                    <constraint firstAttribute="height" constant="90" id="YRv-pl-yyJ"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="24"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -476,6 +517,89 @@
             </objects>
             <point key="canvasLocation" x="3000.8000000000002" y="971.96401799100454"/>
         </scene>
+        <!--My Profile-->
+        <scene sceneID="sZ5-10-wR8">
+            <objects>
+                <viewController id="8TA-ew-LGD" customClass="MyProfileController" customModule="frank_ios" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PG8-w7-fHq"/>
+                        <viewControllerLayoutGuide type="bottom" id="HiA-Pn-c86"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fz1-Jk-Gn7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8J0-YC-Trd">
+                                <rect key="frame" x="0.0" y="140" width="375" height="120"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="e.g. (281) 323-8627" minimumFontSize="16" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qjE-Qz-lK3">
+                                        <rect key="frame" x="15" y="50.5" width="345" height="19"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="8TA-ew-LGD" id="F0x-oU-yeQ"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F49-zE-LUk">
+                                        <rect key="frame" x="15" y="27" width="108" height="18.5"/>
+                                        <fontDescription key="fontDescription" name="Georgia-Italic" family="Georgia" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="F49-zE-LUk" firstAttribute="leading" secondItem="qjE-Qz-lK3" secondAttribute="leading" id="HfT-ZB-mVv"/>
+                                    <constraint firstAttribute="trailing" secondItem="qjE-Qz-lK3" secondAttribute="trailing" constant="15" id="KF4-Oh-sjj"/>
+                                    <constraint firstAttribute="height" constant="120" id="UBB-eL-sQH"/>
+                                    <constraint firstItem="qjE-Qz-lK3" firstAttribute="top" secondItem="F49-zE-LUk" secondAttribute="bottom" constant="5" id="Y5J-ze-Ubz"/>
+                                    <constraint firstItem="qjE-Qz-lK3" firstAttribute="leading" secondItem="8J0-YC-Trd" secondAttribute="leading" constant="15" id="Yw8-b8-Aeg"/>
+                                    <constraint firstItem="qjE-Qz-lK3" firstAttribute="centerY" secondItem="8J0-YC-Trd" secondAttribute="centerY" id="qQT-hh-TZJ"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Cs-2H-SQY">
+                                <rect key="frame" x="127" y="260" width="120" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Snq-yJ-efT"/>
+                                    <constraint firstAttribute="width" constant="120" id="h5e-tN-fv5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Georgia-Italic" family="Georgia" pointSize="16"/>
+                                <state key="normal" title="save">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveButtonPressed:" destination="8TA-ew-LGD" eventType="touchUpInside" id="pMT-Iy-uJd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6Cs-2H-SQY" firstAttribute="top" secondItem="8J0-YC-Trd" secondAttribute="bottom" id="2Pg-bD-DkV"/>
+                            <constraint firstItem="8J0-YC-Trd" firstAttribute="centerY" secondItem="fz1-Jk-Gn7" secondAttribute="centerY" multiplier="0.6" constant="0.67000000000000004" id="VAY-Zx-Bse"/>
+                            <constraint firstItem="8J0-YC-Trd" firstAttribute="leading" secondItem="fz1-Jk-Gn7" secondAttribute="leading" id="aHU-nl-vcy"/>
+                            <constraint firstItem="6Cs-2H-SQY" firstAttribute="centerX" secondItem="fz1-Jk-Gn7" secondAttribute="centerX" id="nDh-ZQ-fgT"/>
+                            <constraint firstAttribute="trailing" secondItem="8J0-YC-Trd" secondAttribute="trailing" id="wbo-II-1qC"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="My Profile" id="VLE-iJ-Tkg">
+                        <barButtonItem key="leftBarButtonItem" image="back-arrow" id="72z-Qg-VY0">
+                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <connections>
+                                <action selector="backButtonPressed:" destination="8TA-ew-LGD" id="YXX-hW-vh6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="phoneNumberTextField" destination="qjE-Qz-lK3" id="EEA-WK-AWf"/>
+                        <outlet property="saveButton" destination="6Cs-2H-SQY" id="ndL-Hc-CpM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XqS-JO-jAc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2240.8000000000002" y="1801.3493253373315"/>
+        </scene>
         <!--My Friends-->
         <scene sceneID="UYX-KY-OJf">
             <objects>
@@ -581,13 +705,13 @@
                                                 </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xNB-km-Qkq" userLabel="Confirm Button">
-                                                <rect key="frame" x="112.5" y="261.5" width="150" height="30"/>
+                                                <rect key="frame" x="127.5" y="261.5" width="120" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="tFl-vh-jDF"/>
-                                                    <constraint firstAttribute="width" constant="150" id="w3C-qy-6Wz"/>
+                                                    <constraint firstAttribute="width" constant="120" id="w3C-qy-6Wz"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="16"/>
-                                                <state key="normal" title="Confirm">
+                                                <state key="normal" title="confirm">
                                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
                                                 <connections>
@@ -668,13 +792,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aV1-qV-4xn">
-                                <rect key="frame" x="112" y="299.5" width="150" height="30"/>
+                                <rect key="frame" x="127.5" y="299.5" width="120" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="30m-8h-ATQ"/>
+                                    <constraint firstAttribute="width" constant="120" id="30m-8h-ATQ"/>
                                     <constraint firstAttribute="height" constant="30" id="hvD-vO-QdV"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="16"/>
-                                <state key="normal" title="Continue">
+                                <state key="normal" title="continue">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
@@ -706,7 +830,7 @@
         <!--Add Contacts-->
         <scene sceneID="JZ8-nX-ZXR">
             <objects>
-                <viewController id="HOU-zM-gmF" customClass="AddContactsController" customModule="frank_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="HOU-zM-gmF" customClass="AddContactsController" customModule="frank_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PBR-OC-b7d"/>
                         <viewControllerLayoutGuide type="bottom" id="A3i-YA-q4N"/>
@@ -782,6 +906,7 @@
     <resources>
         <image name="add" width="50" height="50"/>
         <image name="back-arrow" width="25" height="25"/>
+        <image name="call" width="30" height="30"/>
         <image name="down-arrow" width="50" height="50"/>
         <image name="frank-logo" width="155" height="76"/>
         <image name="frank-minimal-logo" width="76" height="19"/>
@@ -789,9 +914,10 @@
         <image name="plus" width="25" height="25"/>
         <image name="profile" width="50" height="50"/>
         <image name="settings" width="50" height="50"/>
+        <image name="text" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ITc-lP-wnR"/>
+        <segue reference="JQU-ah-K4g"/>
         <segue reference="zrQ-k7-f7n"/>
     </inferredMetricsTieBreakers>
 </document>
