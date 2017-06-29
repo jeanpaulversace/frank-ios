@@ -40,12 +40,13 @@ class AddedMeController: UIViewController, UITableViewDelegate, UITableViewDataS
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        activityIndicator = NVActivityIndicatorView(frame: self.view.frame, type: NVActivityIndicatorType.ballScaleRipple, color: UIColor.darkGray, padding: NVActivityIndicatorView.DEFAULT_PADDING)
-        self.tableView.addSubview(self.refreshControl)
-        
-        // Hide separator lines for intial empty tableview
-        tableView.separatorStyle = .none
-        tableView.rowHeight = 60.0
+        DispatchQueue.main.async {
+            activityIndicator = NVActivityIndicatorView(frame: self.view.frame, type: NVActivityIndicatorType.ballScaleRipple, color: UIColor.darkGray, padding: NVActivityIndicatorView.DEFAULT_PADDING)
+            self.tableView.addSubview(self.refreshControl)
+            // Hide separator lines for intial empty tableview
+            tableView.separatorStyle = .none
+            tableView.rowHeight = 60.0
+        }
         
         let addedMeTableViewCellNib = UINib(nibName: "AddedMeTableViewCell", bundle: nil)
         tableView.register(addedMeTableViewCellNib, forCellReuseIdentifier: "AddedMe")
@@ -54,7 +55,9 @@ class AddedMeController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Georgia-Italic", size: 24)!]
+        DispatchQueue.main.async {
+            self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Georgia-Italic", size: 24)!]
+        }
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {
@@ -62,18 +65,24 @@ class AddedMeController: UIViewController, UITableViewDelegate, UITableViewDataS
         // Fetch more objects from a web service, for example...
         
         updateTableViewWithFriendRequests(table: tableView)
-        refreshControl.endRefreshing()
+        DispatchQueue.main.async {
+            refreshControl.endRefreshing()
+        }
     }
     
     func updateTableViewWithFriendRequests(table: UITableView) {
         
-        self.activityIndicator.startAnimating()
+        DispatchQueue.main.async {
+            self.activityIndicator.startAnimating()
+        }
 
         if UserService.currentUser != nil {
             
             FriendRequestService.get().then { result -> Void in
                 
-                self.activityIndicator.stopAnimating()
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                }
                 
                 self.friendRequests = [FriendRequest]()
                 self.friendRequestsStatus = [String:FriendRequestStatus]()
@@ -82,9 +91,13 @@ class AddedMeController: UIViewController, UITableViewDelegate, UITableViewDataS
                     
                     if resultDictionary.count == 0 {
                         self.createEmptyStateLabel()
-                        self.tableView.separatorStyle = .none
+                        DispatchQueue.main.async {
+                            self.tableView.separatorStyle = .none
+                        }
                     } else {
-                        self.tableView.separatorStyle = .singleLine
+                        DispatchQueue.main.async {
+                            self.tableView.separatorStyle = .singleLine
+                        }
                     }
                     
                     for object in resultDictionary {
@@ -136,7 +149,9 @@ class AddedMeController: UIViewController, UITableViewDelegate, UITableViewDataS
         label.textAlignment = .center
         label.text = "No Friend Requests"
         
-        self.tableView.addSubview(label)
+        DispatchQueue.main.async {
+            self.tableView.addSubview(label)
+        }
     }
     
     
@@ -203,7 +218,9 @@ class AddedMeController: UIViewController, UITableViewDelegate, UITableViewDataS
                 let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
                 alert.addAction(unfriend)
                 alert.addAction(cancel)
-                self.present(alert, animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true, completion: nil)
+                }
             case FriendRequestStatus.Pending:
                 // Go to server, delete friend request
                 self.friendRequestsStatus[friendRequest.fromUser.id] = FriendRequestStatus.Add

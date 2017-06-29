@@ -49,8 +49,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                                 let rootController = storyboard.instantiateViewController(withIdentifier: "FeelingsNavigation") as! UINavigationController
                                 window.rootViewController = rootController
-                                window.makeKeyAndVisible()
-                                self.doLoadingAnimation(window: window)
+                                DispatchQueue.main.async {
+                                    window.makeKeyAndVisible()
+                                    self.doLoadingAnimation(window: window)
+                                }
                             }
                         } catch {
                             UserService.currentUser = nil
@@ -97,36 +99,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let whiteBG = UIView(frame: window.frame)
             whiteBG.backgroundColor = UIColor.white
             
-            window.addSubview(whiteBG)
-            window.addSubview(pinkImageView)
-            window.addSubview(blueImageView)
-            window.addSubview(greenImageView)
-            window.addSubview(purpleImageView)
-            
-            UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-                pinkImageView.frame.origin.x = window.center.x + 75
-            }, completion: { (result) in
+            DispatchQueue.main.async {
+                window.addSubview(whiteBG)
+                window.addSubview(pinkImageView)
+                window.addSubview(blueImageView)
+                window.addSubview(greenImageView)
+                window.addSubview(purpleImageView)
+                
                 UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-                    blueImageView.frame.origin.x = window.center.x + 15
+                    pinkImageView.frame.origin.x = window.center.x + 75
                 }, completion: { (result) in
                     UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-                        greenImageView.frame.origin.x = window.center.x - 45
+                        blueImageView.frame.origin.x = window.center.x + 15
                     }, completion: { (result) in
                         UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-                            purpleImageView.frame.origin.x = window.center.x - 105
+                            greenImageView.frame.origin.x = window.center.x - 45
                         }, completion: { (result) in
-                            UIView.transition(with: window, duration: 1.0, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
-                                whiteBG.removeFromSuperview()
-                                pinkImageView.removeFromSuperview()
-                                blueImageView.removeFromSuperview()
-                                greenImageView.removeFromSuperview()
-                                purpleImageView.removeFromSuperview()
-                            }, completion: nil)
+                            UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+                                purpleImageView.frame.origin.x = window.center.x - 105
+                            }, completion: { (result) in
+                                UIView.transition(with: window, duration: 1.0, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
+                                    whiteBG.removeFromSuperview()
+                                    pinkImageView.removeFromSuperview()
+                                    blueImageView.removeFromSuperview()
+                                    greenImageView.removeFromSuperview()
+                                    purpleImageView.removeFromSuperview()
+                                }, completion: nil)
+                            })
                         })
                     })
                 })
-            })
-            
+            }
         }
     }
 

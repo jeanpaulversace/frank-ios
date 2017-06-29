@@ -40,40 +40,48 @@ class FeelingsController: UIViewController, SettingsControllerDelegate, Settings
     
     func initializeViews() {
         
-        reloadFeelingsButton.layer.borderColor = UIColor.darkGray.cgColor
-        reloadFeelingsButton.layer.borderWidth = 0.5
-        reloadFeelingsButton.layer.cornerRadius = 6
-        
-        textButton.layer.borderColor = UIColor.darkGray.cgColor
-        textButton.layer.borderWidth = 1.0
-        textButton.layer.cornerRadius = textButton.bounds.width/2
-        
-        callButton.layer.borderColor = UIColor.darkGray.cgColor
-        callButton.layer.borderWidth = 1.0
-        callButton.layer.cornerRadius = callButton.bounds.width/2
+        DispatchQueue.main.async {
+            reloadFeelingsButton.layer.borderColor = UIColor.darkGray.cgColor
+            reloadFeelingsButton.layer.borderWidth = 0.5
+            reloadFeelingsButton.layer.cornerRadius = 6
+            
+            textButton.layer.borderColor = UIColor.darkGray.cgColor
+            textButton.layer.borderWidth = 1.0
+            textButton.layer.cornerRadius = textButton.bounds.width/2
+            
+            callButton.layer.borderColor = UIColor.darkGray.cgColor
+            callButton.layer.borderWidth = 1.0
+            callButton.layer.cornerRadius = callButton.bounds.width/2
+        }
     }
     
     func changeViewsForFeelings(empty: Bool) {
         
         if empty {
-            noFeelingsLabel.isHidden = false
-            reloadFeelingsButton.isHidden = true
-            textButton.isHidden = true
-            callButton.isHidden = true
+            DispatchQueue.main.async {
+                noFeelingsLabel.isHidden = false
+                reloadFeelingsButton.isHidden = true
+                textButton.isHidden = true
+                callButton.isHidden = true
+            }
         } else {
-            noFeelingsLabel.isHidden = true
-            reloadFeelingsButton.isHidden = true
-            textButton.isHidden = false
-            callButton.isHidden = false
+            DispatchQueue.main.async {
+                noFeelingsLabel.isHidden = true
+                reloadFeelingsButton.isHidden = true
+                textButton.isHidden = false
+                callButton.isHidden = false
+            }
         }
         
     }
     
     func changeViewsForEndOfFeelings() {
-        textButton.isHidden = true
-        callButton.isHidden = true
-        reloadFeelingsButton.isHidden = false
-        noFeelingsLabel.isHidden = true
+        DispatchQueue.main.async {
+            textButton.isHidden = true
+            callButton.isHidden = true
+            reloadFeelingsButton.isHidden = false
+            noFeelingsLabel.isHidden = true
+        }
     }
     
     func checkForUserBuyIn() {
@@ -193,7 +201,9 @@ class FeelingsController: UIViewController, SettingsControllerDelegate, Settings
                 UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
             }
         }))
-        self.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 
     

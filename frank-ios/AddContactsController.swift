@@ -40,14 +40,18 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
         activityIndicator = NVActivityIndicatorView(frame: self.view.frame, type: NVActivityIndicatorType.ballScaleRipple, color: UIColor.darkGray, padding: NVActivityIndicatorView.DEFAULT_PADDING)
         
         // Hide separator lines for intial empty tableview
-        tableView.separatorStyle = .none
-        tableView.rowHeight = 60.0
+        DispatchQueue.main.async {
+            tableView.separatorStyle = .none
+            tableView.rowHeight = 60.0
+        }
         
         // Load custom tableview cell and register
         let addContactsTableViewCellNib = UINib(nibName: "AddContactsTableViewCell", bundle: nil)
         tableView.register(addContactsTableViewCellNib, forCellReuseIdentifier: "AddContacts")
         
-        self.tableView.addSubview(self.refreshControl)
+        DispatchQueue.main.async {
+            self.tableView.addSubview(self.refreshControl)
+        }
         updateTableViewWithPossibleFriends(tableView: self.tableView)
         
     }
@@ -57,21 +61,24 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
         self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Georgia-Italic", size: 24)!]
         
         if delegate != nil {
-            skipButton.isEnabled = false
-            skipButton.tintColor = UIColor.clear
-            backButton.isEnabled = true
-            backButton.tintColor = UIColor.darkText
+            DispatchQueue.main.async {
+                skipButton.isEnabled = false
+                skipButton.tintColor = UIColor.clear
+                backButton.isEnabled = true
+                backButton.tintColor = UIColor.darkText
+            }
         } else {
-            
-            skipButton.setTitleTextAttributes([
-                NSFontAttributeName: UIFont(name: "Georgia-Italic", size: 24.0)!,
-                NSForegroundColorAttributeName: UIColor.darkText],
-                                              for: UIControlState.normal)
-            
-            skipButton.isEnabled = true
-            skipButton.tintColor = UIColor.darkText
-            backButton.isEnabled = false
-            backButton.tintColor = UIColor.clear
+            DispatchQueue.main.async {
+                skipButton.setTitleTextAttributes([
+                    NSFontAttributeName: UIFont(name: "Georgia-Italic", size: 24.0)!,
+                    NSForegroundColorAttributeName: UIColor.darkText],
+                                                  for: UIControlState.normal)
+                
+                skipButton.isEnabled = true
+                skipButton.tintColor = UIColor.darkText
+                backButton.isEnabled = false
+                backButton.tintColor = UIColor.clear
+            }
         }
         
     }
@@ -81,7 +88,9 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
         // Fetch more objects from a web service, for example...
         
         updateTableViewWithPossibleFriends(tableView: tableView)
-        refreshControl.endRefreshing()
+        DispatchQueue.main.async {
+            refreshControl.endRefreshing()
+        }
     }
     
     
@@ -129,13 +138,17 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
     
     func updateTableViewWithPossibleFriends (tableView: UITableView) {
         
-        self.activityIndicator.startAnimating()
+        DispatchQueue.main.async {
+            self.activityIndicator.startAnimating()
+        }
         let contacts = getContacts()
         
         getPossibleFriends(contacts: contacts).then { result -> Void in
             
             // Start activity indicator
-            self.activityIndicator.stopAnimating()
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+            }
             self.users = [User]()
             
             if let resultDictionary = result as? [[String:Any]] {
@@ -164,17 +177,21 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
                 print("Error occurred trying to find possible friends: \(error)")
                 
                 // Set possible friends to empty array
-                self.activityIndicator.stopAnimating()
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                }
         }
 
         
     }
     
     func updateSendButton() {
-        if (selectedUsers.count == 0) {
-            sendButton.isHidden = true
-        } else {
-            sendButton.isHidden = false
+        DispatchQueue.main.async {
+            if (selectedUsers.count == 0) {
+                sendButton.isHidden = true
+            } else {
+                sendButton.isHidden = false
+            }
         }
     }
     
@@ -304,10 +321,12 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
     func updateAddButtonForRow(indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? AddContactsTableViewCell {
 
-            if selectedUsers.contains(where: { $0 === users[indexPath.row]}) {
-                cell.setSelected()
-            } else {
-                cell.setDeselected()
+            DispatchQueue.main.async {
+                if selectedUsers.contains(where: { $0 === users[indexPath.row]}) {
+                    cell.setSelected()
+                } else {
+                    cell.setDeselected()
+                }
             }
             
         }
@@ -320,7 +339,9 @@ class AddContactsController: UIViewController, UITableViewDataSource, UITableVie
         label.textAlignment = .center
         label.text = "No Contacts To Add"
         
-        self.tableView.addSubview(label)
+        DispatchQueue.main.async {
+            self.tableView.addSubview(label)
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

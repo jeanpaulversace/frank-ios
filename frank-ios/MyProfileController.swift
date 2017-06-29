@@ -14,6 +14,7 @@ class MyProfileController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var phoneNumberTextField: UITextField!
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var logOutButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,19 +22,25 @@ class MyProfileController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view.
         let border = CALayer()
         let width = CGFloat(0.5)
-        border.borderColor = UIColor.darkGray.cgColor
-        border.frame = CGRect(x: 0, y: self.phoneNumberTextField.frame.size.height - width, width:  self.phoneNumberTextField.frame.size.width, height: self.phoneNumberTextField.frame.size.height)
-        border.borderWidth = width
-        self.phoneNumberTextField.layer.addSublayer(border)
-        self.phoneNumberTextField.layer.masksToBounds = true
-        self.phoneNumberTextField.tintColor = UIColor.darkGray
-        
-        self.saveButton.layer.borderColor = UIColor.darkGray.cgColor
-        self.saveButton.layer.borderWidth = 0.5
-        self.saveButton.layer.cornerRadius = 2
-        
-        if let currentUser = UserService.currentUser {
-            self.phoneNumberTextField.text = currentUser.phoneNumber
+        DispatchQueue.main.async {
+            border.borderColor = UIColor.darkGray.cgColor
+            border.frame = CGRect(x: 0, y: self.phoneNumberTextField.frame.size.height - width, width:  self.phoneNumberTextField.frame.size.width, height: self.phoneNumberTextField.frame.size.height)
+            border.borderWidth = width
+            self.phoneNumberTextField.layer.addSublayer(border)
+            self.phoneNumberTextField.layer.masksToBounds = true
+            self.phoneNumberTextField.tintColor = UIColor.darkGray
+            
+            self.saveButton.layer.borderColor = UIColor.darkGray.cgColor
+            self.saveButton.layer.borderWidth = 0.5
+            self.saveButton.layer.cornerRadius = 2
+            
+            self.logOutButton.layer.borderColor = UIColor.darkGray.cgColor
+            self.logOutButton.layer.borderWidth = 0.5
+            self.logOutButton.layer.cornerRadius = 2
+            
+            if let currentUser = UserService.currentUser {
+                self.phoneNumberTextField.text = currentUser.phoneNumber
+            }
         }
         
     }
@@ -45,12 +52,29 @@ class MyProfileController: UIViewController, UITextFieldDelegate {
             let fullName = currentUser.name
             let fullNameArr = fullName.components(separatedBy: " ")
             let firstName: String = fullNameArr.first!
-            self.title = "\(firstName)'s Profile"
+            DispatchQueue.main.async {
+                self.title = "\(firstName)'s Profile"
+            }
         }
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
-        self.delegate.popBackToFeelings()
+        OperationQueue.main.addOperation {
+            [weak self] in
+            self?.delegate.popBackToFeelings()
+        }
+    }
+    
+    @IBAction func logOutButtonPressed(_ sender: UIButton) {
+        // Log out user
+        UserService.currentUser = nil
+        FBSDKAccessToken.setCurrent(nil)
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let loginController = storyboard.instantiateViewController(withIdentifier: "Login") as? LoginController {
+            self.present(loginController, animated: true, completion: {
+            })
+        }
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
@@ -66,7 +90,9 @@ class MyProfileController: UIViewController, UITextFieldDelegate {
             } else {
                 let alert = UIAlertController(title: "Invalid Phone Number", message: "Please enter a valid 10-digit number", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true, completion: nil)
+                }
             }
         }
     }
@@ -153,7 +179,9 @@ class MyProfileController: UIViewController, UITextFieldDelegate {
             
             let remainder = decimalString.substring(from: index)
             formattedString.append(remainder)
-            textField.text = formattedString as String
+            DispatchQueue.main.async {
+                textField.text = formattedString as String
+            }
             return false
             
         } else {

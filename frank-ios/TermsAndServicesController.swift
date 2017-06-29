@@ -17,10 +17,11 @@ class TermsAndServicesController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        self.continueButton.layer.borderColor = UIColor.darkGray.cgColor
-        self.continueButton.layer.borderWidth = 0.5
-        self.continueButton.layer.cornerRadius = 2
+        DispatchQueue.main.async {
+            self.continueButton.layer.borderColor = UIColor.darkGray.cgColor
+            self.continueButton.layer.borderWidth = 0.5
+            self.continueButton.layer.cornerRadius = 2
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,7 +62,9 @@ class TermsAndServicesController: UIViewController {
                             let alert = UIAlertController(title: "Contacts Access Denied", message: "Please go to Settings > Frank and allow Contacts access", preferredStyle: UIAlertControllerStyle.alert)
                             let action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil)
                             alert.addAction(action)
-                            self.show(alert, sender: nil)
+                            DispatchQueue.main.async {
+                                self.show(alert, sender: nil)
+                            }
                         }
                     }
                 }

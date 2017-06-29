@@ -9,7 +9,8 @@
 import Foundation
 
 struct Constants {
-    static let serverUrl = "http://192.168.0.6:8080"
+//    static let serverUrl = "http://192.168.254.14:8080"
+    static let serverUrl = "https://jeanpaulversace-frank.herokuapp.com"
 }
 
 struct FrankColors {

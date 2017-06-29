@@ -30,12 +30,13 @@ class MyFriendsController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        activityIndicator = NVActivityIndicatorView(frame: self.view.frame, type: NVActivityIndicatorType.ballScaleRipple, color: UIColor.darkGray, padding: NVActivityIndicatorView.DEFAULT_PADDING)
-        self.tableView.addSubview(self.refreshControl)
-        
-        // Hide separator lines for intial empty tableview
-        tableView.separatorStyle = .none
-        tableView.rowHeight = 60.0
+        DispatchQueue.main.async {
+            activityIndicator = NVActivityIndicatorView(frame: self.view.frame, type: NVActivityIndicatorType.ballScaleRipple, color: UIColor.darkGray, padding: NVActivityIndicatorView.DEFAULT_PADDING)
+            self.tableView.addSubview(self.refreshControl)
+            // Hide separator lines for intial empty tableview
+            tableView.separatorStyle = .none
+            tableView.rowHeight = 60.0            
+        }
         
         let addedMeTableViewCellNib = UINib(nibName: "AddedMeTableViewCell", bundle: nil)
         tableView.register(addedMeTableViewCellNib, forCellReuseIdentifier: "AddedMe")
@@ -52,19 +53,25 @@ class MyFriendsController: UIViewController, UITableViewDelegate, UITableViewDat
         // Fetch more objects from a web service, for example...
         
         updateTableViewWithFriends(table: tableView)
-        refreshControl.endRefreshing()
+        DispatchQueue.main.async {
+            refreshControl.endRefreshing()
+        }
     }
     
     
     func updateTableViewWithFriends(table: UITableView) {
         
-        self.activityIndicator.startAnimating()
+        DispatchQueue.main.async {
+            self.activityIndicator.startAnimating()
+        }
         
         if let currentUser = UserService.currentUser {
             
             FriendService.get(user: currentUser).then { result -> Void in
                 
-                self.activityIndicator.stopAnimating()
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                }
                 
                 self.friends = [User]()
                 self.friendRequests = [Int:FriendRequest]()
@@ -74,9 +81,13 @@ class MyFriendsController: UIViewController, UITableViewDelegate, UITableViewDat
                     
                     if resultDictionary.count == 0 {
                         self.createEmptyStateLabel()
-                        self.tableView.separatorStyle = .none
+                        DispatchQueue.main.async {
+                            self.tableView.separatorStyle = .none
+                        }
                     } else {
-                        self.tableView.separatorStyle = .singleLine
+                        DispatchQueue.main.async {
+                            self.tableView.separatorStyle = .singleLine
+                        }
                     }
                     
                     for object in resultDictionary {
@@ -96,7 +107,9 @@ class MyFriendsController: UIViewController, UITableViewDelegate, UITableViewDat
                     print("Error occurred trying to find possible friends: \(error)")
                     
                     // Set possible friends to empty array
+                DispatchQueue.main.async {
                     self.activityIndicator.stopAnimating()
+                }
             }
             
         }
@@ -122,7 +135,9 @@ class MyFriendsController: UIViewController, UITableViewDelegate, UITableViewDat
         label.textAlignment = .center
         label.text = "No Friends"
         
-        self.tableView.addSubview(label)
+        DispatchQueue.main.async {
+            self.tableView.addSubview(label)
+        }
     }
     
     

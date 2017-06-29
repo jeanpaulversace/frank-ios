@@ -24,15 +24,19 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate  {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        fbLoginButton.delegate = self
-        fbLoginButton.isHidden = true
-        frankImageView.isHidden = true
+        DispatchQueue.main.async {
+            fbLoginButton.delegate = self
+            fbLoginButton.isHidden = true
+            frankImageView.isHidden = true
+        }
         
         if FBSDKAccessToken.current() == nil {
-            UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
-                self.fbLoginButton.isHidden = false
-                self.frankImageView.isHidden = false
-            }, completion: nil)
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
+                    self.fbLoginButton.isHidden = false
+                    self.frankImageView.isHidden = false
+                }, completion: nil)
+            }
         }
     }
     
@@ -49,11 +53,16 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate  {
             print("Facebook Login was cancelled")
         }
         else {
-            fbLoginButton.isHidden = true
+            print("Logging the user in!")
+            DispatchQueue.main.async {
+                fbLoginButton.isHidden = true
+            }
             // Facebook Login was successful
             // Find or create user on server
             if let accessToken = FBSDKAccessToken.current() {
                 UserService.login(accessToken: accessToken).then { result -> Void in
+                    
+                    print("Logged into server!")
                     
                     if let resultDictionary = result as? [String: Any],
                         let user = resultDictionary["user"] as? [String:Any] {
@@ -91,9 +100,9 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate  {
                     
                     FBSDKLoginManager.init().logOut()
                     
-                    self.fbLoginButton.isHidden = false
-                    
-                    
+                    DispatchQueue.main.async {
+                        self.fbLoginButton.isHidden = false
+                    }
                 }
             }
         }

@@ -22,27 +22,29 @@ class FeelingCardView: UIView {
     @IBOutlet weak var nameLabel: UILabel!
     
     func configureFeelingCard(name: String, rating: Int, profilePictureUrl: URL) {
-        self.nameLabel.text = name
-        self.profilePictureImageView.downloadedFrom(url: profilePictureUrl)
-        
-        profilePictureImageView.layer.borderWidth = 1
-        profilePictureImageView.layer.cornerRadius = profilePictureImageView.bounds.width/2
-        profilePictureImageView.layer.borderColor = UIColor.darkText.cgColor
-        profilePictureImageView.clipsToBounds = true
-        
-        self.layer.cornerRadius = 4
-        
-        switch rating {
-        case 1:
-            self.backgroundColor = FrankColors.Zambezi
-        case 2:
-            self.backgroundColor = FrankColors.ArmyGreen
-        case 3:
-            self.backgroundColor = FrankColors.BaliHai
-        case 4:
-            self.backgroundColor = FrankColors.NewYorkPink
-        default:
-            self.backgroundColor = UIColor.lightGray
+        DispatchQueue.main.async {
+            self.nameLabel.text = name
+            self.profilePictureImageView.downloadedFrom(url: profilePictureUrl)
+            
+            profilePictureImageView.layer.borderWidth = 1
+            profilePictureImageView.layer.cornerRadius = profilePictureImageView.bounds.width/2
+            profilePictureImageView.layer.borderColor = UIColor.darkText.cgColor
+            profilePictureImageView.clipsToBounds = true
+            
+            self.layer.cornerRadius = 4
+            
+            switch rating {
+            case 1:
+                self.backgroundColor = FrankColors.Zambezi
+            case 2:
+                self.backgroundColor = FrankColors.ArmyGreen
+            case 3:
+                self.backgroundColor = FrankColors.BaliHai
+            case 4:
+                self.backgroundColor = FrankColors.NewYorkPink
+            default:
+                self.backgroundColor = UIColor.lightGray
+            }            
         }
     }
 

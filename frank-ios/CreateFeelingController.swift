@@ -28,32 +28,36 @@ class CreateFeelingController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        buttonOne.layer.borderColor = UIColor.clear.cgColor
-        buttonOne.layer.borderWidth = 0.5
-        buttonOne.layer.cornerRadius = buttonOne.bounds.width/2
-        buttonOne.clipsToBounds = true
-        
-        buttonTwo.layer.borderColor = UIColor.clear.cgColor
-        buttonTwo.layer.borderWidth = 0.5
-        buttonTwo.layer.cornerRadius = buttonTwo.bounds.width/2
-        buttonTwo.clipsToBounds = true
-        
-        buttonThree.layer.borderColor = UIColor.clear.cgColor
-        buttonThree.layer.borderWidth = 0.5
-        buttonThree.layer.cornerRadius = buttonThree.bounds.width/2
-        buttonThree.clipsToBounds = true
-        
-        buttonFour.layer.borderColor = UIColor.clear.cgColor
-        buttonFour.layer.borderWidth = 0.5
-        buttonFour.layer.cornerRadius = buttonFour.bounds.width/2
-        buttonFour.clipsToBounds = true
+        DispatchQueue.main.async {
+            // Do any additional setup after loading the view.
+            buttonOne.layer.borderColor = UIColor.clear.cgColor
+            buttonOne.layer.borderWidth = 0.5
+            buttonOne.layer.cornerRadius = buttonOne.bounds.width/2
+            buttonOne.clipsToBounds = true
+            
+            buttonTwo.layer.borderColor = UIColor.clear.cgColor
+            buttonTwo.layer.borderWidth = 0.5
+            buttonTwo.layer.cornerRadius = buttonTwo.bounds.width/2
+            buttonTwo.clipsToBounds = true
+            
+            buttonThree.layer.borderColor = UIColor.clear.cgColor
+            buttonThree.layer.borderWidth = 0.5
+            buttonThree.layer.cornerRadius = buttonThree.bounds.width/2
+            buttonThree.clipsToBounds = true
+            
+            buttonFour.layer.borderColor = UIColor.clear.cgColor
+            buttonFour.layer.borderWidth = 0.5
+            buttonFour.layer.cornerRadius = buttonFour.bounds.width/2
+            buttonFour.clipsToBounds = true
+        }
         
         // User forced to create feeling
         if !hasUserBoughtIn {
-            explanationLabel.text = "In order to see how your friends are feeling, you must \"buy in\" by telling them how you're feeling. Let's keep it real."
-            backButton.isEnabled = false
-            backButton.isHidden = true
+            DispatchQueue.main.async {
+                explanationLabel.text = "In order to see how your friends are feeling, you must \"buy in\" by telling them how you're feeling. Let's keep it real."
+                backButton.isEnabled = false
+                backButton.isHidden = true
+            }
         }
     }
     
@@ -98,7 +102,9 @@ class CreateFeelingController: UIViewController {
                 let alert = UIAlertController(title: "Error Creating Feeling", message: "Please try selecting your feeling again", preferredStyle: UIAlertControllerStyle.alert)
                 let okay = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
                 alert.addAction(okay)
-                self.present(alert, animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true, completion: nil)
+                }
             }
         }
     }

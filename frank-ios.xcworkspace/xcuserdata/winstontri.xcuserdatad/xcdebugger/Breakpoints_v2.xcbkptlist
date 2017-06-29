@@ -27,13 +27,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "frank-ios/FeelingsController.swift"
-            timestampString = "503911569.199406"
+            filePath = "frank-ios/AddContactsController.swift"
+            timestampString = "517345246.72431"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "loadFeelings()"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
+            landmarkName = "getPossibleFriends(contacts:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -43,61 +43,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "frank-ios/FeelingsController.swift"
-            timestampString = "503911569.199406"
+            filePath = "frank-ios/AddContactsController.swift"
+            timestampString = "517345907.240355"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "loadFeelings()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "frank_ios.FeelingsController.(loadFeelings () -&gt; ()).(closure #1)"
-                  moduleName = "frank-ios"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/winstontri/Jeanpaulversace/frank-ios/frank-ios/FeelingsController.swift"
-                  timestampString = "503911569.334697"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "114"
-                  endingLineNumber = "114"
-                  offsetFromSymbolStart = "648">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "frank_ios.FeelingsController.(loadFeelings () -&gt; ()).(closure #1)"
-                  moduleName = "frank-ios"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/winstontri/Jeanpaulversace/frank-ios/frank-ios/FeelingsController.swift"
-                  timestampString = "503911569.335867"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "114"
-                  endingLineNumber = "114"
-                  offsetFromSymbolStart = "684">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "frank-ios/FeelingsController.swift"
-            timestampString = "503911569.199406"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
-            landmarkName = "loadFeelings()"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
+            landmarkName = "getContacts()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -107,77 +59,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "frank-ios/FeelingsController.swift"
-            timestampString = "503911569.199406"
+            filePath = "frank-ios/AddContactsController.swift"
+            timestampString = "517345932.094159"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
-            landmarkName = "loadFeelings()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "frank_ios.FeelingsController.(loadFeelings () -&gt; ()).(closure #1)"
-                  moduleName = "frank-ios"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/winstontri/Jeanpaulversace/frank-ios/frank-ios/FeelingsController.swift"
-                  timestampString = "503911569.339845"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "113"
-                  endingLineNumber = "113"
-                  offsetFromSymbolStart = "532">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "frank_ios.FeelingsController.(loadFeelings () -&gt; ()).(closure #1)"
-                  moduleName = "frank-ios"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/winstontri/Jeanpaulversace/frank-ios/frank-ios/FeelingsController.swift"
-                  timestampString = "503911569.340875"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "113"
-                  endingLineNumber = "113"
-                  offsetFromSymbolStart = "2040">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "frank-ios/FeelingsController.swift"
-            timestampString = "503911569.199406"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
-            landmarkName = "loadFeelings()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "frank-ios/FeelingsController.swift"
-            timestampString = "503912006.683493"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
-            landmarkName = "loadFeelings()"
+            startingLineNumber = "234"
+            endingLineNumber = "234"
+            landmarkName = "getPossibleFriends(contacts:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

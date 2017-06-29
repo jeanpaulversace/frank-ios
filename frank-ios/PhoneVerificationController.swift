@@ -23,15 +23,16 @@ class PhoneVerificationController: UIViewController, UITextFieldDelegate {
         border.borderColor = UIColor.darkGray.cgColor
         border.frame = CGRect(x: 0, y: self.phoneNumberTextField.frame.size.height - width, width:  self.phoneNumberTextField.frame.size.width, height: self.phoneNumberTextField.frame.size.height)
         border.borderWidth = width
-        self.phoneNumberTextField.layer.addSublayer(border)
-        self.phoneNumberTextField.layer.masksToBounds = true
-        self.phoneNumberTextField.tintColor = UIColor.darkGray
-        
-        self.confirmButton.layer.borderColor = UIColor.darkGray.cgColor
-        self.confirmButton.layer.borderWidth = 0.5
-        self.confirmButton.layer.cornerRadius = 2
-        
-        self.phoneNumberTextField.becomeFirstResponder()
+        DispatchQueue.main.async {
+            self.phoneNumberTextField.layer.addSublayer(border)
+            self.phoneNumberTextField.layer.masksToBounds = true
+            self.phoneNumberTextField.tintColor = UIColor.darkGray
+            
+            self.confirmButton.layer.borderColor = UIColor.darkGray.cgColor
+            self.confirmButton.layer.borderWidth = 0.5
+            self.confirmButton.layer.cornerRadius = 2
+            self.phoneNumberTextField.becomeFirstResponder()
+        }
     }
     
     @IBAction func confirmButtonPressed(_ sender: UIButton) {
@@ -47,7 +48,9 @@ class PhoneVerificationController: UIViewController, UITextFieldDelegate {
             } else {
                 let alert = UIAlertController(title: "Invalid Phone Number", message: "Please enter a valid 10-digit number", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true, completion: nil)
+                }
             }
         }
     }
@@ -134,7 +137,9 @@ class PhoneVerificationController: UIViewController, UITextFieldDelegate {
             
             let remainder = decimalString.substring(from: index)
             formattedString.append(remainder)
-            textField.text = formattedString as String
+            DispatchQueue.main.async {
+                textField.text = formattedString as String                
+            }
             return false
             
         } else {
